@@ -1,33 +1,1530 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой первый сайт</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: #f8f9fa;
-            color: #333;
-        }
-        h1 { color: #0969da; }
-        .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-top: 1rem;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enterprise AI & Integration Engineering</title>
+
+  <!-- Google Fonts: DM Serif Display + DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"DM Serif Display"', 'Georgia', 'serif'],
+            sans:  ['"DM Sans"', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            bg:          '#F8F7F4',
+            card:        '#FFFFFF',
+            subtle:      '#F2F0EC',
+            primary:     '#0F0F0E',
+            secondary:   '#6B6860',
+            tertiary:    '#A8A5A0',
+            accent:      '#1B4FD8',
+            'accent-lt': '#EEF2FF',
+            'accent-md': '#3B6FF0',
+            border:      'rgba(15,15,14,0.09)',
+            'border-md': 'rgba(15,15,14,0.15)',
+          },
+          letterSpacing: {
+            widest2: '0.12em',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ─── Base ───────────────────────────────────────────────── */
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #F8F7F4;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: #0F0F0E;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Grid texture (hero) ───────────────────────────────── */
+    .grid-texture {
+      background-image:
+        linear-gradient(rgba(15,15,14,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,15,14,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ─── Typography ────────────────────────────────────────── */
+    .font-display { font-family: 'DM Serif Display', Georgia, serif; }
+
+    /* ─── Thin borders ──────────────────────────────────────── */
+    .border-thin   { border: 0.5px solid rgba(15,15,14,0.09); }
+    .border-thin-md { border: 0.5px solid rgba(15,15,14,0.15); }
+
+    /* ─── Scroll-reveal animation ───────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.55s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    /* ─── Counter animation ─────────────────────────────────── */
+    .count-up { display: inline-block; }
+
+    /* ─── Uptime bar ─────────────────────────────────────────── */
+    .uptime-seg {
+      height: 4px;
+      border-radius: 2px;
+      flex: 1;
+      background: #D1FAE5;
+    }
+    .uptime-seg.incident { background: #FDE68A; }
+
+    /* ─── Animated progress bars ─────────────────────────────── */
+    .progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ─── Pulse dot ──────────────────────────────────────────── */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+    .pulse { animation: pulse-dot 1.8s ease-in-out infinite; }
+
+    /* ─── Flow arrows ────────────────────────────────────────── */
+    .flow-arrow {
+      flex: 1;
+      height: 0.5px;
+      background: rgba(15,15,14,0.18);
+      position: relative;
+      min-width: 20px;
+    }
+    .flow-arrow::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -3px;
+      border: 4px solid transparent;
+      border-left: 5px solid rgba(15,15,14,0.18);
+    }
+    .flow-arrow-active {
+      background: #1B4FD8;
+    }
+    .flow-arrow-active::after {
+      border-left-color: #1B4FD8;
+    }
+
+    /* ─── Nav link hover ─────────────────────────────────────── */
+    .nav-link {
+      color: #6B6860;
+      font-size: 13px;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: #0F0F0E; }
+
+    /* ─── Button primary ─────────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0F0F0E;
+      color: #F8F7F4;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover {
+      background: #1B4FD8;
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ─── Button ghost ───────────────────────────────────────── */
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: #6B6860;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 10px 20px;
+      border-radius: 7px;
+      border: 0.5px solid rgba(15,15,14,0.2);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover {
+      border-color: rgba(15,15,14,0.35);
+      color: #0F0F0E;
+      transform: translateY(-1px);
+    }
+
+    /* ─── Service card ───────────────────────────────────────── */
+    .service-card {
+      background: #FFFFFF;
+      border: 0.5px solid rgba(15,15,14,0.09);
+      border-radius: 12px;
+      padding: 22px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .service-card:hover {
+      border-color: rgba(15,15,14,0.22);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Stage card ─────────────────────────────────────────── */
+    .stage-card {
+      background: #FFFFFF;
+      border: 0.5px solid rgba(15,15,14,0.09);
+      border-radius: 12px;
+      padding: 22px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stage-card:hover {
+      border-color: rgba(15,15,14,0.22);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Manifest card ──────────────────────────────────────── */
+    .manifest-card {
+      background: #FFFFFF;
+      border: 0.5px solid rgba(15,15,14,0.09);
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    /* ─── Metric cell ────────────────────────────────────────── */
+    .metric-cell {
+      background: #FFFFFF;
+      padding: 24px 20px;
+    }
+    .metric-divider {
+      background: rgba(15,15,14,0.09);
+    }
+
+    /* ─── Tech chip ──────────────────────────────────────────── */
+    .tech-chip {
+      font-size: 11px;
+      font-weight: 500;
+      color: #6B6860;
+      background: #F2F0EC;
+      padding: 5px 11px;
+      border-radius: 20px;
+      border: 0.5px solid rgba(15,15,14,0.09);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .tech-chip-active {
+      background: #EEF2FF;
+      color: #1B4FD8;
+      border-color: rgba(27,79,216,0.2);
+    }
+
+    /* ─── Section label ──────────────────────────────────────── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #A8A5A0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: rgba(15,15,14,0.1);
+    }
+
+    /* ─── Eyebrow ────────────────────────────────────────────── */
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #1B4FD8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .eyebrow-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #1B4FD8;
+      flex-shrink: 0;
+    }
+
+    /* ─── Tag pill ───────────────────────────────────────────── */
+    .tag-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: #EEF2FF;
+      color: #1B4FD8;
+      padding: 3px 9px;
+      border-radius: 4px;
+    }
+
+    /* ─── CTA form ───────────────────────────────────────────── */
+    .form-input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 0.5px solid rgba(15,15,14,0.15);
+      border-radius: 7px;
+      padding: 11px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: #0F0F0E;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus {
+      border-color: #1B4FD8;
+      box-shadow: 0 0 0 3px rgba(27,79,216,0.08);
+    }
+    .form-input::placeholder { color: #A8A5A0; }
+
+    textarea.form-input { resize: vertical; min-height: 90px; }
+  </style>
 </head>
-<body>
-    <h1>Привет, мир!</h1>
-    <div class="card">
-        <p>Это мой первый сайт на GitHub Pages.</p>
-        <p>Он работает бесплатно и доступен всему интернету.</p>
+
+<body class="bg-bg">
+
+  <!-- ════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════ -->
+  <header class="bg-bg border-b border-thin sticky top-0 z-50" style="border-color: rgba(15,15,14,0.08);">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#" class="font-display text-lg text-primary tracking-tight" style="letter-spacing: -0.02em;">
+        Arc<span style="color:#1B4FD8;">.</span>Systems
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#services"        class="nav-link">Services</a>
+        <a href="#how-we-work"     class="nav-link">How we work</a>
+        <a href="#why-us"          class="nav-link">Why us</a>
+        <a href="#contact"         class="btn-primary" style="padding: 7px 16px; font-size: 12px;">
+          Let's talk
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </nav>
+
+      <!-- Mobile hamburger -->
+      <button id="menu-toggle" class="md:hidden p-2" aria-label="Open menu">
+        <svg width="20" height="20" fill="none" stroke="#0F0F0E" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+      </button>
     </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-bg border-t border-thin px-6 pb-5 pt-4 flex flex-col gap-4" style="border-color: rgba(15,15,14,0.08);">
+      <a href="#services"    class="nav-link text-base">Services</a>
+      <a href="#how-we-work" class="nav-link text-base">How we work</a>
+      <a href="#why-us"      class="nav-link text-base">Why us</a>
+      <a href="#contact"     class="btn-primary self-start mt-2">Let's talk</a>
+    </div>
+  </header>
+
+
+  <!-- ════════════════════════════════════════
+       BLOCK 1 — HERO
+  ════════════════════════════════════════ -->
+  <section class="relative overflow-hidden" style="padding: 96px 0 80px;">
+
+    <!-- Hero canvas background -->
+    <canvas id="hero-canvas" class="absolute inset-0 pointer-events-none" style="width:100%;height:100%;opacity:0.45;" aria-hidden="true"></canvas>
+    <!-- Grid texture -->
+    <div class="grid-texture absolute inset-0 pointer-events-none" style="opacity:0.55;" aria-hidden="true"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6">
+
+      <!-- Eyebrow -->
+      <div class="eyebrow reveal mb-5">
+        <div class="eyebrow-dot" aria-hidden="true"></div>
+        Integration Architect &amp; AI Engineering Team
+      </div>
+
+      <!-- Main headline -->
+      <h1 class="font-display reveal reveal-delay-1 text-primary mb-6"
+          style="font-size: clamp(36px, 6vw, 64px); line-height: 1.06; letter-spacing: -0.025em; max-width: 760px;">
+        We build systems that eliminate
+        <em style="font-style: italic; color: #1B4FD8;">operational drag</em>
+        at enterprise scale
+      </h1>
+
+      <!-- Sub -->
+      <p class="reveal reveal-delay-2 text-secondary mb-8"
+         style="font-size: 16px; font-weight: 300; line-height: 1.7; max-width: 520px;">
+        Custom development, AI solutions, and deep system integration for
+        SAP-centric enterprises that have outgrown fragile workarounds and manual operations.
+      </p>
+
+      <!-- CTAs -->
+      <div class="reveal reveal-delay-3 flex flex-wrap gap-3 mb-16">
+        <a href="#contact" class="btn-primary">
+          Let's talk architecture
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#services" class="btn-ghost">
+          See what we do
+        </a>
+      </div>
+
+      <!-- ── Metrics bar ── -->
+      <div class="reveal reveal-delay-4 border-thin rounded-xl overflow-hidden"
+           style="border-color: rgba(15,15,14,0.09);">
+        <div class="grid grid-cols-2 md:grid-cols-4">
+
+          <div class="metric-cell border-r border-b md:border-b-0 metric-divider">
+            <div class="font-display text-4xl text-primary leading-none mb-2" style="letter-spacing: -0.03em;">
+              <span class="count-up" data-target="12">0</span><span style="color:#1B4FD8; font-size: 24px;">+</span>
+            </div>
+            <div class="text-tertiary" style="font-size: 12px; line-height: 1.4;">Years building<br>enterprise systems</div>
+          </div>
+
+          <div class="metric-cell border-b md:border-b-0 md:border-r metric-divider">
+            <div class="font-display text-4xl text-primary leading-none mb-2" style="letter-spacing: -0.03em;">
+              <span class="count-up" data-target="100">0</span><span style="color:#1B4FD8; font-size: 24px;">+</span>
+            </div>
+            <div class="text-tertiary" style="font-size: 12px; line-height: 1.4;">Live CPI integration<br>flows in production</div>
+          </div>
+
+          <div class="metric-cell border-r metric-divider">
+            <div class="font-display text-4xl text-primary leading-none mb-2" style="letter-spacing: -0.03em;">
+              99.9<span style="color:#1B4FD8; font-size: 24px;">%</span>
+            </div>
+            <div class="text-tertiary" style="font-size: 12px; line-height: 1.4;">Uptime on secure<br>integration channels</div>
+          </div>
+
+          <div class="metric-cell">
+            <div class="font-display text-4xl text-primary leading-none mb-2" style="letter-spacing: -0.03em;">
+              <span class="count-up" data-target="10">0</span><span style="color:#1B4FD8; font-size: 24px;">+</span>
+            </div>
+            <div class="text-tertiary" style="font-size: 12px; line-height: 1.4;">SAP go-lives delivered<br>on time &amp; on budget</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       BLOCK 3 — SERVICES
+  ════════════════════════════════════════ -->
+  <section id="services" style="padding: 96px 0;">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="section-label reveal">What we do</div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <!-- AI Solutions -->
+        <div class="service-card reveal">
+          <div style="font-size: 20px; color: #1B4FD8; margin-bottom: 12px;" aria-hidden="true">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9.5 3H5a2 2 0 0 0-2 2v4.5M9.5 3l5 5M9.5 3v3.5a2 2 0 0 0 2 2H15M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.5M15 3l-5.5 5.5"/><circle cx="12" cy="16" r="2"/><path d="M12 14v-2"/></svg>
+          </div>
+          <div class="tag-pill mb-3">AI Solutions</div>
+          <h3 class="font-display text-primary mb-3" style="font-size: 20px; line-height: 1.2; letter-spacing: -0.01em;">
+            Intelligent automation embedded in your existing stack
+          </h3>
+          <ul class="space-y-2 mb-4">
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              AI agents that read, classify, and route documents before a human ever sees them — deployed inside your SAP or CRM workflow.
+            </li>
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              LLM-powered assistants scoped to your data, running in your infrastructure — no third-party data exposure.
+            </li>
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              Predictive models for demand, churn, and process exceptions — integrated as live signals, not a separate BI layer.
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="tech-chip tech-chip-active">LLM / RAG</span>
+            <span class="tech-chip tech-chip-active">IDP</span>
+            <span class="tech-chip">Python</span>
+            <span class="tech-chip">SAP AI Core</span>
+          </div>
+        </div>
+
+        <!-- Automation & Integration -->
+        <div class="service-card reveal reveal-delay-1">
+          <div style="font-size: 20px; color: #1B4FD8; margin-bottom: 12px;" aria-hidden="true">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 6h10M7 18h10M10 12H7a2 2 0 0 1-2-2V8M14 12h3a2 2 0 0 0 2-2V8M10 12v2a2 2 0 0 1-2 2H5M14 12v2a2 2 0 0 0 2 2h3"/></svg>
+          </div>
+          <div class="tag-pill mb-3">Automation &amp; Integration</div>
+          <h3 class="font-display text-primary mb-3" style="font-size: 20px; line-height: 1.2; letter-spacing: -0.01em;">
+            Systems that talk to each other — without constant maintenance
+          </h3>
+          <ul class="space-y-2 mb-4">
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              100+ live CPI integration flows between SAP Sales & Service Cloud and on-premises ERP — real-time sync, versioned, documented.
+            </li>
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              Processes that take 3 hours run in 12 minutes — zero manual input, full audit trail, no double entry.
+            </li>
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              Integration architecture that survives ERP upgrades — we design for the version after next.
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="tech-chip tech-chip-active">SAP CPI</span>
+            <span class="tech-chip tech-chip-active">SAP BTP</span>
+            <span class="tech-chip tech-chip-active">REST / SOAP</span>
+            <span class="tech-chip">n8n</span>
+          </div>
+        </div>
+
+        <!-- Digital Transformation -->
+        <div class="service-card reveal reveal-delay-2">
+          <div style="font-size: 20px; color: #1B4FD8; margin-bottom: 12px;" aria-hidden="true">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/><path d="M16 12h-4"/></svg>
+          </div>
+          <div class="tag-pill mb-3">Digital Transformation</div>
+          <h3 class="font-display text-primary mb-3" style="font-size: 20px; line-height: 1.2; letter-spacing: -0.01em;">
+            From chaotic IT landscape to a managed, scalable architecture
+          </h3>
+          <ul class="space-y-2 mb-4">
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              We audit your current landscape, map every integration point, and identify what's costing you money silently — before proposing a single change.
+            </li>
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              Architecture-led modernization: AS-IS → TO-BE, with a migration path that doesn't stop the business.
+            </li>
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              Your system stops being a single-person dependency. Legible, transferable, scalable with your headcount.
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="tech-chip">Architecture audit</span>
+            <span class="tech-chip">Roadmap</span>
+            <span class="tech-chip">SAP S/4HANA</span>
+          </div>
+        </div>
+
+        <!-- Custom Development -->
+        <div class="service-card reveal reveal-delay-3">
+          <div style="font-size: 20px; color: #1B4FD8; margin-bottom: 12px;" aria-hidden="true">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+          </div>
+          <div class="tag-pill mb-3">Custom Development</div>
+          <h3 class="font-display text-primary mb-3" style="font-size: 20px; line-height: 1.2; letter-spacing: -0.01em;">
+            Built for your process — not adapted from a template
+          </h3>
+          <ul class="space-y-2 mb-4">
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              No feature bloat, no licensing overhead, no vendor negotiation — built exactly for your workflow.
+            </li>
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              Internal tools, integration services, and enterprise platforms your team can actually maintain.
+            </li>
+            <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
+              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              Full codebase and documentation ownership transferred on delivery. No lock-in, ever.
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="tech-chip">React</span>
+            <span class="tech-chip">Node.js</span>
+            <span class="tech-chip">Python</span>
+            <span class="tech-chip">PostgreSQL</span>
+            <span class="tech-chip">Docker</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       INTEGRATION ARCHITECTURE — CANVAS ANIMATION
+  ════════════════════════════════════════ -->
+  <section style="padding: 0 0 80px;">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="reveal" style="border: 0.5px solid rgba(15,15,14,0.09); border-radius: 14px; overflow: hidden; position: relative; background: #FFFFFF;">
+
+        <!-- Header bar -->
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 0.5px solid rgba(15,15,14,0.07); position: relative; z-index: 2; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);">
+          <div style="font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #A8A5A0;">
+            Real-time data orchestration
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="display: flex; gap: 5px; align-items: center;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #1B4FD8; opacity: .7;" aria-hidden="true"></div>
+              <span style="font-size: 10px; color: #A8A5A0;">Integration</span>
+            </div>
+            <div style="display: flex; gap: 5px; align-items: center;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #0891b2; opacity: .7;" aria-hidden="true"></div>
+              <span style="font-size: 10px; color: #A8A5A0;">Data flow</span>
+            </div>
+            <div style="display: flex; gap: 5px; align-items: center;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #7c3aed; opacity: .7;" aria-hidden="true"></div>
+              <span style="font-size: 10px; color: #A8A5A0;">AI orchestration</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <div class="pulse" style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e;" aria-hidden="true"></div>
+              <span style="font-size: 10px; color: #22c55e; font-weight: 500;">Live</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canvas -->
+        <canvas id="arch-canvas" style="display: block; width: 100%; height: 380px;"></canvas>
+
+        <!-- Footer bar -->
+        <div style="padding: 12px 20px; border-top: 0.5px solid rgba(15,15,14,0.07); display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); position: relative; z-index: 2;">
+          <span style="font-size: 10px; color: #C0BDBA;">Move your cursor to interact with the data flows</span>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="font-size: 11px; color: #A8A5A0;"><span style="color: #0F0F0E; font-weight: 500;">99.9%</span> uptime</div>
+            <div style="font-size: 11px; color: #A8A5A0;"><span style="color: #0F0F0E; font-weight: 500;">100+</span> live flows</div>
+            <div style="font-size: 11px; color: #A8A5A0;"><span style="color: #0F0F0E; font-weight: 500;">&lt;50ms</span> latency</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Canvas animation script (light theme) ── -->
+  <script>
+  (function() {
+    const canvas = document.getElementById('arch-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    /* Light-theme palette — subtle, premium */
+    const PALETTE = [
+      { r:27,  g:79,  b:216 },   /* indigo  — integration  */
+      { r:8,   g:145, b:178 },   /* cyan    — data flow    */
+      { r:124, g:58,  b:237 },   /* violet  — AI / orch.   */
+    ];
+
+    const CFG = {
+      nodeCount:    18,
+      connectR:     200,
+      mouseR:       160,
+      mouseK:       0.011,
+      pulseSpeed:   0.006,
+      nodeSpeed:    0.22,
+      spawnEvery:   60,
+      syncEvery:    300,
+    };
+
+    let W, H, DPR;
+    let nodes = [], pulses = [];
+    let mouse = { x: -999, y: -999 };
+    let frame = 0, lastT = 0;
+
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W   = rect.width;
+      H   = rect.height;
+      canvas.width  = W * DPR;
+      canvas.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+
+    function mkNode(i) {
+      const col = PALETTE[i % PALETTE.length];
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - .5) * CFG.nodeSpeed,
+        vy: (Math.random() - .5) * CFG.nodeSpeed,
+        r:  2.0 + Math.random() * 2.0,
+        col,
+        isAI:  col === PALETTE[2],
+        alpha: .5 + Math.random() * .4,
+        phase: Math.random() * Math.PI * 2,
+        ring: 0, ringOn: false,
+      };
+    }
+
+    function init() {
+      nodes  = Array.from({ length: CFG.nodeCount }, (_, i) => mkNode(i));
+      pulses = [];
+    }
+
+    function spawnPulse(a, b) {
+      const col = (a.isAI || b.isAI) ? PALETTE[2] :
+                  Math.random() < .5  ? PALETTE[1] : PALETTE[0];
+      pulses.push({ from:a, to:b, t:0, col,
+        speed: CFG.pulseSpeed * (.75 + Math.random() * .5),
+        r: 1.5 + Math.random() * 1.2 });
+    }
+
+    function orchestrate() {
+      const ai = nodes.filter(n => n.isAI);
+      const o  = ai[Math.floor(Math.random() * ai.length)] || nodes[0];
+      o.ring = 0; o.ringOn = true;
+      nodes.forEach(n => {
+        if (n === o) return;
+        const d = Math.hypot(n.x - o.x, n.y - o.y);
+        if (d < CFG.connectR * 1.15 && Math.random() < .5) spawnPulse(o, n);
+      });
+    }
+
+    function edgeAlpha(d) { return Math.max(0, 1 - d / CFG.connectR) * .18; }
+
+    function drawEdge(a, b, d, hi) {
+      const al = hi ? .45 : edgeAlpha(d);
+      if (al < 0.01) return;
+      const col = (a.isAI || b.isAI) ? PALETTE[2] : PALETTE[1];
+      ctx.save();
+      ctx.globalAlpha = al;
+      ctx.strokeStyle = `rgb(${col.r},${col.g},${col.b})`;
+      ctx.lineWidth   = hi ? 0.9 : 0.5;
+      /* subtle shadow for depth — light bg = very soft */
+      ctx.shadowColor = `rgb(${col.r},${col.g},${col.b})`;
+      ctx.shadowBlur  = hi ? 6 : 2;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawNode(n, t) {
+      const sh = .8 + .2 * Math.sin(t * .0014 + n.phase);
+      ctx.save();
+      /* outer halo */
+      ctx.globalAlpha = n.alpha * sh * .22;
+      ctx.fillStyle   = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * 3.2, 0, Math.PI * 2);
+      ctx.fill();
+      /* main dot */
+      ctx.globalAlpha = n.alpha * sh * .75;
+      ctx.shadowColor = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+      ctx.shadowBlur  = 8;
+      ctx.fillStyle   = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+      /* bright core */
+      ctx.globalAlpha = n.alpha * sh * .6;
+      ctx.shadowBlur  = 2;
+      ctx.fillStyle   = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * .4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      if (n.ringOn) {
+        const rr = n.r + n.ring * 50;
+        ctx.save();
+        ctx.globalAlpha = (1 - n.ring) * .3;
+        ctx.strokeStyle = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+        ctx.lineWidth   = 0.8;
+        ctx.shadowColor = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+        ctx.shadowBlur  = 6;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, rr, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+        n.ring += .02;
+        if (n.ring >= 1) { n.ring = 0; n.ringOn = false; }
+      }
+    }
+
+    function drawPulse(p) {
+      const x   = p.from.x + (p.to.x - p.from.x) * p.t;
+      const y   = p.from.y + (p.to.y - p.from.y) * p.t;
+      const al  = (1 - Math.abs(p.t - .5) * 1.8) * .85;
+      if (al <= 0) return;
+      ctx.save();
+      ctx.globalAlpha = al;
+      ctx.shadowColor = `rgb(${p.col.r},${p.col.g},${p.col.b})`;
+      ctx.shadowBlur  = 10;
+      ctx.fillStyle   = `rgb(${p.col.r},${p.col.g},${p.col.b})`;
+      ctx.beginPath();
+      ctx.arc(x, y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur  = 2;
+      ctx.fillStyle   = '#ffffff';
+      ctx.globalAlpha = al * .7;
+      ctx.beginPath();
+      ctx.arc(x, y, p.r * .35, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function render(ts) {
+      requestAnimationFrame(render);
+      if (ts - lastT < 16) return;
+      lastT = ts;
+      frame++;
+
+      /* clear with page bg */
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, W, H);
+
+      if (frame % CFG.syncEvery === 0) orchestrate();
+
+      /* update nodes */
+      nodes.forEach(n => {
+        const dx = mouse.x - n.x, dy = mouse.y - n.y;
+        const dm = Math.hypot(dx, dy);
+        if (dm < CFG.mouseR) {
+          const f = (1 - dm / CFG.mouseR) * CFG.mouseK;
+          n.vx += dx * f; n.vy += dy * f;
+        }
+        n.vx *= .986; n.vy *= .986;
+        const sp = Math.hypot(n.vx, n.vy);
+        if (sp > CFG.nodeSpeed * 2.4) {
+          n.vx = n.vx / sp * CFG.nodeSpeed * 2.4;
+          n.vy = n.vy / sp * CFG.nodeSpeed * 2.4;
+        }
+        n.x += n.vx; n.y += n.vy;
+        const pad = 36;
+        if (n.x < pad)     { n.x = pad;     n.vx *= -1; }
+        if (n.x > W - pad) { n.x = W - pad; n.vx *= -1; }
+        if (n.y < pad)     { n.y = pad;     n.vy *= -1; }
+        if (n.y > H - pad) { n.y = H - pad; n.vy *= -1; }
+      });
+
+      /* draw edges */
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const d = Math.hypot(nodes[j].x - nodes[i].x, nodes[j].y - nodes[i].y);
+          if (d < CFG.connectR) drawEdge(nodes[i], nodes[j], d, false);
+        }
+      }
+
+      /* mouse highlight */
+      nodes.forEach(n => {
+        const dm = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+        if (dm < CFG.mouseR * .7) {
+          nodes.forEach(m => {
+            if (m === n) return;
+            const d = Math.hypot(m.x - n.x, m.y - n.y);
+            if (d < CFG.connectR * 1.3) drawEdge(n, m, d, true);
+          });
+        }
+      });
+
+      /* nodes */
+      nodes.forEach(n => drawNode(n, ts));
+
+      /* pulses */
+      pulses = pulses.filter(p => p.t < 1);
+      pulses.forEach(p => { drawPulse(p); p.t += p.speed; });
+
+      /* spawn */
+      if (frame % CFG.spawnEvery === 0) {
+        const sh = [...nodes].sort(() => Math.random() - .5);
+        outer:
+        for (let i = 0; i < sh.length; i++) {
+          for (let j = i + 1; j < sh.length; j++) {
+            const d = Math.hypot(sh[j].x - sh[i].x, sh[j].y - sh[i].y);
+            if (d < CFG.connectR && Math.random() < .28) {
+              spawnPulse(sh[i], sh[j]);
+              if (Math.random() < .35) spawnPulse(sh[j], sh[i]);
+              break outer;
+            }
+          }
+        }
+      }
+    }
+
+    /* events */
+    canvas.addEventListener('mousemove', e => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left;
+      mouse.y = e.clientY - r.top;
+    });
+    canvas.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+    canvas.addEventListener('touchmove', e => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.touches[0].clientX - r.left;
+      mouse.y = e.touches[0].clientY - r.top;
+    }, { passive: true });
+
+    window.addEventListener('resize', () => { resize(); init(); });
+
+    resize();
+    init();
+    requestAnimationFrame(render);
+  })();
+  </script>
+
+
+  <!-- ════════════════════════════════════════
+       BLOCK 4 — WE STEP IN AT ANY STAGE
+  ════════════════════════════════════════ -->
+  <section id="how-we-work" style="padding: 80px 0;">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="section-label reveal">We step in at any stage</div>
+
+      <div class="mb-10 reveal">
+        <h2 class="font-display text-primary" style="font-size: clamp(28px, 4vw, 44px); line-height: 1.1; letter-spacing: -0.02em; max-width: 560px;">
+          Wherever you are in the project lifecycle — we fit in.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="stage-card reveal">
+          <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #EEF2FF; color: #1B4FD8; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">Greenfield</div>
+          <h3 class="font-display text-primary mb-3" style="font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;">
+            Start with architecture, not with code
+          </h3>
+          <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
+            You have a business problem and a rough idea. We bring the architecture, the stack decision, and the delivery plan — so you don't spend 18 months rebuilding what should have been designed correctly from day one.
+          </p>
+        </div>
+
+        <div class="stage-card reveal reveal-delay-1">
+          <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #D1FAE5; color: #065F46; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">MVP in weeks</div>
+          <h3 class="font-display text-primary mb-3" style="font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;">
+            A working product before your next board meeting
+          </h3>
+          <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
+            AI-accelerated development means your MVP isn't a prototype — it's a production-ready system with real integrations and real data. Weeks, not quarters.
+          </p>
+        </div>
+
+        <div class="stage-card reveal reveal-delay-2">
+          <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #FEE2E2; color: #991B1B; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">Project rescue</div>
+          <h3 class="font-display text-primary mb-3" style="font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;">
+            We've seen what "almost done" actually means
+          </h3>
+          <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
+            Stalled delivery, a team that left mid-project, or a system held together with undocumented workarounds — we assess honestly, cut what can't be saved, and rebuild what matters. No sugarcoating.
+          </p>
+        </div>
+
+        <div class="stage-card reveal reveal-delay-3">
+          <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #DBEAFE; color: #1E40AF; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">Team augmentation</div>
+          <h3 class="font-display text-primary mb-3" style="font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;">
+            Senior capacity, without the senior hiring process
+          </h3>
+          <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
+            Your team knows the domain. We bring the engineering depth. We operate inside your workflow, your tools, your standards — and leave the codebase cleaner than we found it.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       ARCHITECT TRUST BLOCK
+  ════════════════════════════════════════ -->
+  <section style="padding: 80px 0; background: #F2F0EC;">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="section-label reveal">The architect behind the work</div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+
+        <div class="reveal">
+          <h2 class="font-display text-primary mb-4" style="font-size: clamp(26px, 3.5vw, 38px); line-height: 1.12; letter-spacing: -0.02em;">
+            Integration Architect &amp; Tech Lead, 12+ years in enterprise landscapes
+          </h2>
+          <p class="text-secondary mb-6" style="font-size: 14px; font-weight: 300; line-height: 1.7;">
+            SAP CPI/BTP, Sales &amp; Service Cloud, C4C — plus full-stack engineering. Positioned as the architect of mixed SAP + general-dev teams, not just an integration developer.
+          </p>
+          <p class="text-secondary" style="font-size: 14px; font-weight: 300; line-height: 1.7;">
+            The person teams call when something complex is unclear or on fire: makes sense of chaotic requirements, formalises them, designs the architecture, and takes personal accountability for integrations.
+          </p>
+        </div>
+
+        <!-- KPI widget -->
+        <div class="reveal reveal-delay-1">
+          <div class="bg-card border-thin rounded-xl p-6" style="border-color: rgba(15,15,14,0.09);">
+            <div style="font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #A8A5A0; margin-bottom: 20px;">
+              Delivered outcomes
+            </div>
+
+            <div class="space-y-5">
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span style="font-size: 12px; color: #6B6860;">Automation coverage across projects</span>
+                  <span style="font-size: 12px; font-weight: 500; color: #0F0F0E;">87%</span>
+                </div>
+                <div style="height: 3px; background: #F2F0EC; border-radius: 2px; overflow: hidden;">
+                  <div class="progress-fill" data-width="87" style="background: #1B4FD8;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span style="font-size: 12px; color: #6B6860;">Integration channel uptime</span>
+                  <span style="font-size: 12px; font-weight: 500; color: #0F0F0E;">99.9%</span>
+                </div>
+                <div style="height: 3px; background: #F2F0EC; border-radius: 2px; overflow: hidden;">
+                  <div class="progress-fill" data-width="99" style="background: #22c55e;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span style="font-size: 12px; color: #6B6860;">Manual operations eliminated</span>
+                  <span style="font-size: 12px; font-weight: 500; color: #0F0F0E;">–74%</span>
+                </div>
+                <div style="height: 3px; background: #F2F0EC; border-radius: 2px; overflow: hidden;">
+                  <div class="progress-fill" data-width="74" style="background: #f59e0b;"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mt-6 pt-5" style="border-top: 0.5px solid rgba(15,15,14,0.09);">
+              <div>
+                <div class="font-display text-primary" style="font-size: 26px; letter-spacing: -0.03em;">10<span style="color:#1B4FD8; font-size: 18px;">+</span></div>
+                <div style="font-size: 11px; color: #A8A5A0; margin-top: 2px;">Full SAP go-lives,<br>scoping to production</div>
+              </div>
+              <div>
+                <div class="font-display text-primary" style="font-size: 26px; letter-spacing: -0.03em;">100<span style="color:#1B4FD8; font-size: 18px;">+</span></div>
+                <div style="font-size: 11px; color: #A8A5A0; margin-top: 2px;">CPI flows live in<br>enterprise production</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bullet capabilities -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+        <div class="reveal bg-card border-thin rounded-xl p-5" style="border-color: rgba(15,15,14,0.09);">
+          <div style="font-size: 16px; color: #1B4FD8; margin-bottom: 8px;" aria-hidden="true">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div style="font-size: 12px; font-weight: 500; color: #0F0F0E; margin-bottom: 4px;">Define architecture</div>
+          <div style="font-size: 11px; color: #6B6860; line-height: 1.5;">Technical direction for mixed SAP + custom dev teams</div>
+        </div>
+        <div class="reveal reveal-delay-1 bg-card border-thin rounded-xl p-5" style="border-color: rgba(15,15,14,0.09);">
+          <div style="font-size: 16px; color: #1B4FD8; margin-bottom: 8px;" aria-hidden="true">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div style="font-size: 12px; font-weight: 500; color: #0F0F0E; margin-bottom: 4px;">Code review &amp; standards</div>
+          <div style="font-size: 11px; color: #6B6860; line-height: 1.5;">Quality gates that accelerate releases, not block them</div>
+        </div>
+        <div class="reveal reveal-delay-2 bg-card border-thin rounded-xl p-5" style="border-color: rgba(15,15,14,0.09);">
+          <div style="font-size: 16px; color: #1B4FD8; margin-bottom: 8px;" aria-hidden="true">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div style="font-size: 12px; font-weight: 500; color: #0F0F0E; margin-bottom: 4px;">Translate requirements</div>
+          <div style="font-size: 11px; color: #6B6860; line-height: 1.5;">From vague business asks to precise technical roadmaps</div>
+        </div>
+        <div class="reveal reveal-delay-3 bg-card border-thin rounded-xl p-5" style="border-color: rgba(15,15,14,0.09);">
+          <div style="font-size: 16px; color: #1B4FD8; margin-bottom: 8px;" aria-hidden="true">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div style="font-size: 12px; font-weight: 500; color: #0F0F0E; margin-bottom: 4px;">Escalation point</div>
+          <div style="font-size: 11px; color: #6B6860; line-height: 1.5;">Personal accountability for integrations when incidents happen</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       BLOCK 5 — MANIFEST
+  ════════════════════════════════════════ -->
+  <section id="why-us" style="padding: 96px 0;">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="section-label reveal">What it's like to work with us</div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="manifest-card reveal">
+          <div style="width: 28px; height: 2px; background: #1B4FD8; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0F0F0E; margin-bottom: 8px;">AI-first engineering</div>
+          <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
+            We use AI agents in our own development workflow — which means faster delivery, higher test coverage, and documentation that actually exists when the project closes.
+          </p>
+        </div>
+
+        <div class="manifest-card reveal reveal-delay-1">
+          <div style="width: 28px; height: 2px; background: #1B4FD8; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0F0F0E; margin-bottom: 8px;">Full accountability</div>
+          <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
+            One point of contact. One team that owns the outcome from architecture to deployment — not a relay race between consultants, developers, and project managers.
+          </p>
+        </div>
+
+        <div class="manifest-card reveal reveal-delay-2">
+          <div style="width: 28px; height: 2px; background: #1B4FD8; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0F0F0E; margin-bottom: 8px;">No architecture debt</div>
+          <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
+            We design for the system you'll have in two years, not just the one you need today. Every integration is versioned; every service is replaceable without rebuilding the whole.
+          </p>
+        </div>
+
+        <div class="manifest-card reveal reveal-delay-3">
+          <div style="width: 28px; height: 2px; background: #1B4FD8; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0F0F0E; margin-bottom: 8px;">Honest before comfortable</div>
+          <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
+            If the automation won't pay back in under 12 months, we'll tell you before the contract is signed. We'd rather lose the project than deliver something you'll regret funding.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       TRUST — SECURITY / SUPPORT / PRICING
+  ════════════════════════════════════════ -->
+  <section style="padding: 0 0 80px;">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <div class="reveal bg-card border-thin rounded-xl p-6" style="border-color: rgba(15,15,14,0.09);">
+          <div style="font-size: 18px; color: #1B4FD8; margin-bottom: 10px;" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div style="font-size: 13px; font-weight: 500; color: #0F0F0E; margin-bottom: 6px;">Data security without compromise</div>
+          <p class="text-secondary" style="font-size: 12px; line-height: 1.6;">
+            Your data never touches our servers. Every integration is built on least-privilege access. NDA signed before the first call. Architecture compliant with GDPR and 152-FZ on request.
+          </p>
+        </div>
+
+        <div class="reveal reveal-delay-1 bg-card border-thin rounded-xl p-6" style="border-color: rgba(15,15,14,0.09);">
+          <div style="font-size: 18px; color: #1B4FD8; margin-bottom: 10px;" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div style="font-size: 13px; font-weight: 500; color: #0F0F0E; margin-bottom: 6px;">Support is a product, not a promise</div>
+          <p class="text-secondary" style="font-size: 12px; line-height: 1.6;">
+            After go-live: documentation, SOPs for your team, and 4 weeks of included support. We close the project only after your team operates independently. Extended SLA available.
+          </p>
+        </div>
+
+        <div class="reveal reveal-delay-2 bg-card border-thin rounded-xl p-6" style="border-color: rgba(15,15,14,0.09);">
+          <div style="font-size: 18px; color: #1B4FD8; margin-bottom: 10px;" aria-hidden="true">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div style="font-size: 13px; font-weight: 500; color: #0F0F0E; margin-bottom: 6px;">Financial transparency from day one</div>
+          <p class="text-secondary" style="font-size: 12px; line-height: 1.6;">
+            Detailed scope breakdown before work starts. Budget is fixed or we explain openly why it can't be. Payment by stage: the next phase only begins after the previous one is signed off.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       BLOCK 9 — FINAL CTA / CONTACT FORM
+  ════════════════════════════════════════ -->
+  <section id="contact" style="padding: 96px 0; background: #F2F0EC;">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+
+        <!-- Left copy -->
+        <div class="reveal">
+          <div class="eyebrow mb-5">
+            <div class="eyebrow-dot" aria-hidden="true"></div>
+            Start here
+          </div>
+          <h2 class="font-display text-primary mb-5"
+              style="font-size: clamp(28px, 4vw, 46px); line-height: 1.1; letter-spacing: -0.025em;">
+            30 minutes.<br>
+            No pitch.<br>
+            <em style="color: #1B4FD8; font-style: italic;">Just clarity.</em>
+          </h2>
+          <p class="text-secondary mb-8" style="font-size: 14px; font-weight: 300; line-height: 1.7; max-width: 380px;">
+            Tell us where you are. We'll tell you honestly whether we can help — and what the first step looks like. No proposal until you ask for one.
+          </p>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 text-secondary" style="font-size: 13px;">
+              <svg width="14" height="14" fill="none" stroke="#1B4FD8" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              Express integration audit — delivered in 5 business days
+            </div>
+            <div class="flex items-center gap-3 text-secondary" style="font-size: 13px;">
+              <svg width="14" height="14" fill="none" stroke="#1B4FD8" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              NDA signed before the first conversation
+            </div>
+            <div class="flex items-center gap-3 text-secondary" style="font-size: 13px;">
+              <svg width="14" height="14" fill="none" stroke="#1B4FD8" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              No junior handoffs — you talk to the architect
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="reveal reveal-delay-1">
+          <form class="bg-card border-thin rounded-xl p-7 flex flex-col gap-4"
+                style="border-color: rgba(15,15,14,0.09);"
+                onsubmit="handleFormSubmit(event)">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="name" style="font-size: 11px; font-weight: 500; color: #6B6860; display: block; margin-bottom: 5px;">Your name</label>
+                <input id="name" type="text" class="form-input" placeholder="Alex Johnson" required />
+              </div>
+              <div>
+                <label for="email" style="font-size: 11px; font-weight: 500; color: #6B6860; display: block; margin-bottom: 5px;">Work email</label>
+                <input id="email" type="email" class="form-input" placeholder="alex@company.com" required />
+              </div>
+            </div>
+
+            <div>
+              <label for="company" style="font-size: 11px; font-weight: 500; color: #6B6860; display: block; margin-bottom: 5px;">Company</label>
+              <input id="company" type="text" class="form-input" placeholder="Company name" />
+            </div>
+
+            <div>
+              <label for="message" style="font-size: 11px; font-weight: 500; color: #6B6860; display: block; margin-bottom: 5px;">What's the problem you're solving?</label>
+              <textarea id="message" class="form-input" placeholder="Briefly describe your current situation: systems involved, what's broken or slow, what outcome you're aiming for."></textarea>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <input id="audit" type="checkbox" style="width: 14px; height: 14px; accent-color: #1B4FD8;" />
+              <label for="audit" style="font-size: 12px; color: #6B6860; cursor: pointer;">
+                I'd like a free express audit of my current integrations / processes
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary w-full justify-center" style="padding: 12px 20px; font-size: 14px;">
+              Send message
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <p id="form-success" style="display: none; font-size: 12px; color: #22c55e; text-align: center; margin-top: 4px;">
+              Message sent. We'll be in touch within one business day.
+            </p>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer style="padding: 32px 0; border-top: 0.5px solid rgba(15,15,14,0.09);">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="font-display text-primary" style="font-size: 16px; letter-spacing: -0.02em;">
+        Arc<span style="color:#1B4FD8;">.</span>Systems
+      </div>
+      <div style="font-size: 12px; color: #A8A5A0;">
+        Integration Architecture · AI Engineering · Custom Development
+      </div>
+      <div style="font-size: 12px; color: #A8A5A0;">
+        &copy; 2025 — All rights reserved
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════ -->
+  <script>
+    /* ── Mobile menu toggle ── */
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    /* Close mobile menu when a link is clicked */
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+
+    /* ── Scroll-reveal (IntersectionObserver) ── */
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+
+    /* ── Counter animation ── */
+    const counterElements = document.querySelectorAll('.count-up');
+
+    function animateCounter(element) {
+      const target = parseInt(element.getAttribute('data-target'), 10);
+      const duration = 1200;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed  = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        /* ease-out-quart */
+        const eased    = 1 - Math.pow(1 - progress, 4);
+        element.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counterElements.forEach(el => counterObserver.observe(el));
+
+
+    /* ── Progress bar animation ── */
+    const progressFills = document.querySelectorAll('.progress-fill');
+
+    const progressObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = entry.target.getAttribute('data-width');
+            entry.target.style.width = target + '%';
+            progressObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    progressFills.forEach(el => progressObserver.observe(el));
+
+
+    /* ── Form submit (demo) ── */
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const success = document.getElementById('form-success');
+      success.style.display = 'block';
+      event.target.querySelector('button[type="submit"]').textContent = 'Sent';
+      event.target.querySelector('button[type="submit"]').disabled = true;
+    }
+  </script>
+
+  <!-- ── Hero background canvas (very subtle) ── -->
+  <script>
+  (function() {
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const PAL = [
+      { r:27,  g:79,  b:216 },
+      { r:8,   g:145, b:178 },
+      { r:124, g:58,  b:237 },
+    ];
+
+    let W, H, DPR, nodes = [], pulses = [], frame = 0, lastT = 0;
+    let mouse = { x: -999, y: -999 };
+
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W = rect.width; H = rect.height;
+      canvas.width  = W * DPR;
+      canvas.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+
+    function mkNode(i) {
+      const col = PAL[i % PAL.length];
+      return {
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18,
+        r: 1.8 + Math.random() * 1.6, col,
+        isAI: col === PAL[2],
+        alpha: .4 + Math.random() * .35,
+        phase: Math.random() * Math.PI * 2,
+        ring: 0, ringOn: false,
+      };
+    }
+
+    function init() { nodes = Array.from({ length: 20 }, (_, i) => mkNode(i)); pulses = []; }
+
+    function spawnPulse(a, b) {
+      const col = (a.isAI || b.isAI) ? PAL[2] : Math.random() < .5 ? PAL[1] : PAL[0];
+      pulses.push({ from:a, to:b, t:0, col, speed:.005 * (.8 + Math.random() * .4), r:1.2 + Math.random() });
+    }
+
+    function render(ts) {
+      requestAnimationFrame(render);
+      if (ts - lastT < 16) return;
+      lastT = ts; frame++;
+
+      ctx.clearRect(0, 0, W, H);
+
+      if (frame % 340 === 0) {
+        const ai = nodes.filter(n => n.isAI);
+        const o  = ai[Math.floor(Math.random() * ai.length)] || nodes[0];
+        o.ring = 0; o.ringOn = true;
+        nodes.forEach(n => {
+          if (n === o) return;
+          if (Math.hypot(n.x - o.x, n.y - o.y) < 220 && Math.random() < .45) spawnPulse(o, n);
+        });
+      }
+
+      /* update */
+      nodes.forEach(n => {
+        const dx = mouse.x - n.x, dy = mouse.y - n.y, dm = Math.hypot(dx, dy);
+        if (dm < 180) { const f = (1 - dm/180) * .008; n.vx += dx*f; n.vy += dy*f; }
+        n.vx *= .987; n.vy *= .987;
+        n.x += n.vx; n.y += n.vy;
+        const p = 40;
+        if (n.x < p) { n.x = p; n.vx *= -1; } if (n.x > W-p) { n.x = W-p; n.vx *= -1; }
+        if (n.y < p) { n.y = p; n.vy *= -1; } if (n.y > H-p) { n.y = H-p; n.vy *= -1; }
+      });
+
+      /* edges */
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i+1; j < nodes.length; j++) {
+          const d = Math.hypot(nodes[j].x-nodes[i].x, nodes[j].y-nodes[i].y);
+          if (d < 200) {
+            const al = Math.max(0, 1 - d/200) * .12;
+            const col = (nodes[i].isAI || nodes[j].isAI) ? PAL[2] : PAL[1];
+            ctx.save();
+            ctx.globalAlpha = al;
+            ctx.strokeStyle = `rgb(${col.r},${col.g},${col.b})`;
+            ctx.lineWidth   = 0.5;
+            ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+            ctx.restore();
+          }
+        }
+      }
+
+      /* nodes */
+      nodes.forEach(n => {
+        const sh = .8 + .2 * Math.sin(ts*.0014 + n.phase);
+        ctx.save();
+        ctx.globalAlpha = n.alpha * sh * .15;
+        ctx.fillStyle = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r*3, 0, Math.PI*2); ctx.fill();
+        ctx.globalAlpha = n.alpha * sh * .55;
+        ctx.shadowColor = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+        ctx.shadowBlur  = 6;
+        ctx.fillStyle   = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fill();
+        ctx.restore();
+        if (n.ringOn) {
+          ctx.save();
+          ctx.globalAlpha = (1 - n.ring) * .2;
+          ctx.strokeStyle = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+          ctx.lineWidth   = 0.6;
+          ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.ring*45, 0, Math.PI*2); ctx.stroke();
+          ctx.restore();
+          n.ring += .02; if (n.ring >= 1) { n.ring = 0; n.ringOn = false; }
+        }
+      });
+
+      /* pulses */
+      pulses = pulses.filter(p => p.t < 1);
+      pulses.forEach(p => {
+        const x = p.from.x + (p.to.x - p.from.x) * p.t;
+        const y = p.from.y + (p.to.y - p.from.y) * p.t;
+        const al = (1 - Math.abs(p.t - .5) * 1.8) * .7;
+        if (al > 0) {
+          ctx.save();
+          ctx.globalAlpha = al;
+          ctx.shadowColor = `rgb(${p.col.r},${p.col.g},${p.col.b})`;
+          ctx.shadowBlur  = 8;
+          ctx.fillStyle   = `rgb(${p.col.r},${p.col.g},${p.col.b})`;
+          ctx.beginPath(); ctx.arc(x, y, p.r, 0, Math.PI*2); ctx.fill();
+          ctx.restore();
+        }
+        p.t += p.speed;
+      });
+
+      if (frame % 65 === 0) {
+        const sh = [...nodes].sort(() => Math.random() - .5);
+        outer: for (let i = 0; i < sh.length; i++) {
+          for (let j = i+1; j < sh.length; j++) {
+            const d = Math.hypot(sh[j].x-sh[i].x, sh[j].y-sh[i].y);
+            if (d < 200 && Math.random() < .25) { spawnPulse(sh[i], sh[j]); break outer; }
+          }
+        }
+      }
+    }
+
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('resize', () => { resize(); init(); });
+    resize(); init(); requestAnimationFrame(render);
+  })();
+  </script>
+
 </body>
 </html>
