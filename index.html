@@ -3,14 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Enterprise AI & Integration Engineering</title>
 
-  <!-- Google Fonts: DM Serif Display + DM Sans -->
+  <!-- ══ SEO ══════════════════════════════════════════════════ -->
+  <title>AI Solutions, Custom Development & Automation Integration | Pro1Solai</title>
+  <meta name="description" content="Enterprise AI solutions, custom development, automation & integration, and digital transformation. Integration Architect with 12+ years, 100+ flows, 99.9% uptime." />
+  <meta name="keywords" content="ai solutions for enterprises, custom development, automation and integration services, digital transformation partner, integration architect, enterprise automation, AI consulting" />
+  <link rel="canonical" href="https://80shere.github.io/pro1solai/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://80shere.github.io/pro1solai/" />
+  <meta property="og:title"       content="AI Solutions & Custom Development for Enterprise | Pro1Solai" />
+  <meta property="og:description" content="AI solutions, automation & integration, custom development and digital transformation for enterprise. Integration Architect with 12+ years of delivery." />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Pro1Solai",
+    "description": "Enterprise AI solutions, custom development, automation & integration, and digital transformation services.",
+    "url": "https://80shere.github.io/pro1solai/",
+    "serviceType": ["AI Solutions", "Custom Development", "Automation & Integration", "Digital Transformation"]
+  }
+  </script>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!--
+    FONT STRATEGY — matching globalbit.co.il
+    Globalbit uses "Neue Haas Grotesk Display" (licensed) for headlines
+    and a clean grotesque for body. Closest free match on Google Fonts:
+    • Headlines  → "Plus Jakarta Sans" (geometric grotesque, same weight contrast)
+    • Body/UI    → "Plus Jakarta Sans" (same family feel as Neue Haas Grotesk Text)
+    Both are used on globalbit-style premium IT sites.
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap&display=swapdisplay=swap" rel="stylesheet" />
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
@@ -18,24 +50,20 @@
       theme: {
         extend: {
           fontFamily: {
-            serif: ['"DM Serif Display"', 'Georgia', 'serif'],
-            sans:  ['"DM Sans"', 'system-ui', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            sans:    ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
           },
           colors: {
-            bg:          '#F8F7F4',
+            /* Globalbit-matched palette */
+            bg:          '#F7F6F3',
             card:        '#FFFFFF',
-            subtle:      '#F2F0EC',
-            primary:     '#0F0F0E',
-            secondary:   '#6B6860',
-            tertiary:    '#A8A5A0',
-            accent:      '#1B4FD8',
-            'accent-lt': '#EEF2FF',
-            'accent-md': '#3B6FF0',
-            border:      'rgba(15,15,14,0.09)',
-            'border-md': 'rgba(15,15,14,0.15)',
-          },
-          letterSpacing: {
-            widest2: '0.12em',
+            subtle:      '#EFEDE8',
+            primary:     '#0A0A09',
+            secondary:   '#5C5B57',
+            tertiary:    '#9C9A95',
+            accent:      '#1447E6',
+            'accent-lt': '#EBF0FF',
+            'accent-mid':'#3B6FF0',
           },
         },
       },
@@ -43,239 +71,179 @@
   </script>
 
   <style>
-    /* ─── Base ───────────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════
+       BASE — globalbit aesthetic
+    ══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     html { scroll-behavior: smooth; }
 
     body {
-      background-color: #F8F7F4;
-      font-family: 'DM Sans', system-ui, sans-serif;
-      color: #0F0F0E;
+      background-color: #F7F6F3;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #0A0A09;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
-    /* ─── Grid texture (hero) ───────────────────────────────── */
-    .grid-texture {
-      background-image:
-        linear-gradient(rgba(15,15,14,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(15,15,14,0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
+    /* Canvas sits below everything */
+    body > *:not(#bg-canvas) {
+      position: relative;
+      z-index: 1;
     }
 
-    /* ─── Typography ────────────────────────────────────────── */
-    .font-display { font-family: 'DM Serif Display', Georgia, serif; }
+    /*
+      PLUS JAKARTA SANS — OPTICAL SCALE
+      ──────────────────────────────────────────────────
+      PJS has a tall x-height + open apertures — best
+      practices differ from Inter/Syne:
 
-    /* ─── Thin borders ──────────────────────────────────────── */
-    .border-thin   { border: 0.5px solid rgba(15,15,14,0.09); }
-    .border-thin-md { border: 0.5px solid rgba(15,15,14,0.15); }
+      Large display (56px+) : 800, tracking -0.04em, lh 1.02
+      H1             (48px) : 700, tracking -0.03em, lh 1.06
+      H2             (32px) : 700, tracking -0.025em, lh 1.1
+      H3             (18px) : 600, tracking -0.01em,  lh 1.25
+      Body           (15px) : 400, tracking  0,        lh 1.65
+      Small          (13px) : 400, tracking  0,        lh 1.55
+      Label (uppercase 10px): 600, tracking  0.1em,   lh 1.4
+      ──────────────────────────────────────────────────
+    */
+    .font-display {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
 
-    /* ─── Scroll-reveal animation ───────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    /* ══════════════════════════════════════════════
+       BORDERS — globalbit uses hairline 1px borders
+    ══════════════════════════════════════════════ */
+    .border-thin    { border: 1px solid rgba(10,10,9,0.08); }
+    .border-thin-md { border: 1px solid rgba(10,10,9,0.14); }
+
+    /* ══════════════════════════════════════════════
+       GLOBALBIT UI PATTERN 2 — scroll reveal
+       Globalbit: content fades up gently, no overshoot
+    ══════════════════════════════════════════════ */
     .reveal {
       opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
-                  transform 0.55s cubic-bezier(0.16,1,0.3,1);
+      transform: translateY(18px);
+      transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.6s cubic-bezier(0.22,1,0.36,1);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.08s; }
-    .reveal-delay-2 { transition-delay: 0.16s; }
-    .reveal-delay-3 { transition-delay: 0.24s; }
-    .reveal-delay-4 { transition-delay: 0.32s; }
+    .reveal.visible      { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1      { transition-delay: 0.07s; }
+    .reveal-delay-2      { transition-delay: 0.14s; }
+    .reveal-delay-3      { transition-delay: 0.21s; }
+    .reveal-delay-4      { transition-delay: 0.28s; }
 
-    /* ─── Counter animation ─────────────────────────────────── */
-    .count-up { display: inline-block; }
-
-    /* ─── Uptime bar ─────────────────────────────────────────── */
-    .uptime-seg {
-      height: 4px;
-      border-radius: 2px;
-      flex: 1;
-      background: #D1FAE5;
-    }
-    .uptime-seg.incident { background: #FDE68A; }
-
-    /* ─── Animated progress bars ─────────────────────────────── */
-    .progress-fill {
-      height: 100%;
-      border-radius: 2px;
-      width: 0%;
-      transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+    /* ══════════════════════════════════════════════
+       GLOBALBIT UI PATTERN 3 — sticky nav
+       Frosted glass, ultra-thin bottom border
+    ══════════════════════════════════════════════ */
+    .gb-nav {
+      background: rgba(247,246,243,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(10,10,9,0.07);
     }
 
-    /* ─── Pulse dot ──────────────────────────────────────────── */
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.7); }
-    }
-    .pulse { animation: pulse-dot 1.8s ease-in-out infinite; }
-
-    /* ─── Flow arrows ────────────────────────────────────────── */
-    .flow-arrow {
-      flex: 1;
-      height: 0.5px;
-      background: rgba(15,15,14,0.18);
-      position: relative;
-      min-width: 20px;
-    }
-    .flow-arrow::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: -3px;
-      border: 4px solid transparent;
-      border-left: 5px solid rgba(15,15,14,0.18);
-    }
-    .flow-arrow-active {
-      background: #1B4FD8;
-    }
-    .flow-arrow-active::after {
-      border-left-color: #1B4FD8;
-    }
-
-    /* ─── Nav link hover ─────────────────────────────────────── */
     .nav-link {
-      color: #6B6860;
-      font-size: 13px;
-      font-weight: 400;
-      transition: color 0.2s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #5C5B57;
+      text-decoration: none;
+      letter-spacing: -0.005em;
+      transition: color 0.18s;
     }
-    .nav-link:hover { color: #0F0F0E; }
+    .nav-link:hover { color: #0A0A09; }
 
-    /* ─── Button primary ─────────────────────────────────────── */
+    /* ══════════════════════════════════════════════
+       GLOBALBIT UI PATTERN 4 — pill CTA buttons
+       Their primary button: black, rounded-full, small text
+    ══════════════════════════════════════════════ */
     .btn-primary {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: #0F0F0E;
-      color: #F8F7F4;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 10px 20px;
-      border-radius: 7px;
+      gap: 7px;
+      background: #0A0A09;
+      color: #F7F6F3;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      padding: 10px 22px;
+      border-radius: 100px;
       border: none;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     }
     .btn-primary:hover {
-      background: #1B4FD8;
+      background: #1447E6;
       transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(20,71,230,0.25);
     }
-    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
 
-    /* ─── Button ghost ───────────────────────────────────────── */
     .btn-ghost {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       background: transparent;
-      color: #6B6860;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      padding: 10px 20px;
-      border-radius: 7px;
-      border: 0.5px solid rgba(15,15,14,0.2);
+      color: #5C5B57;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: -0.008em;
+      padding: 10px 22px;
+      border-radius: 100px;
+      border: 1px solid rgba(10,10,9,0.18);
       cursor: pointer;
       text-decoration: none;
       transition: border-color 0.2s, color 0.2s, transform 0.15s;
     }
     .btn-ghost:hover {
-      border-color: rgba(15,15,14,0.35);
-      color: #0F0F0E;
+      border-color: rgba(10,10,9,0.38);
+      color: #0A0A09;
       transform: translateY(-1px);
     }
 
-    /* ─── Service card ───────────────────────────────────────── */
-    .service-card {
-      background: #FFFFFF;
-      border: 0.5px solid rgba(15,15,14,0.09);
-      border-radius: 12px;
-      padding: 22px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .service-card:hover {
-      border-color: rgba(15,15,14,0.22);
-      transform: translateY(-2px);
-    }
-
-    /* ─── Stage card ─────────────────────────────────────────── */
-    .stage-card {
-      background: #FFFFFF;
-      border: 0.5px solid rgba(15,15,14,0.09);
-      border-radius: 12px;
-      padding: 22px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .stage-card:hover {
-      border-color: rgba(15,15,14,0.22);
-      transform: translateY(-2px);
-    }
-
-    /* ─── Manifest card ──────────────────────────────────────── */
-    .manifest-card {
-      background: #FFFFFF;
-      border: 0.5px solid rgba(15,15,14,0.09);
-      border-radius: 12px;
-      padding: 22px;
-    }
-
-    /* ─── Metric cell ────────────────────────────────────────── */
-    .metric-cell {
-      background: #FFFFFF;
-      padding: 24px 20px;
-    }
-    .metric-divider {
-      background: rgba(15,15,14,0.09);
-    }
-
-    /* ─── Tech chip ──────────────────────────────────────────── */
-    .tech-chip {
-      font-size: 11px;
-      font-weight: 500;
-      color: #6B6860;
-      background: #F2F0EC;
-      padding: 5px 11px;
-      border-radius: 20px;
-      border: 0.5px solid rgba(15,15,14,0.09);
-      letter-spacing: 0.01em;
-      white-space: nowrap;
-    }
-    .tech-chip-active {
-      background: #EEF2FF;
-      color: #1B4FD8;
-      border-color: rgba(27,79,216,0.2);
-    }
-
-    /* ─── Section label ──────────────────────────────────────── */
+    /* Section eyebrow label — PJS at 10px needs more tracking */
     .section-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #A8A5A0;
+      color: #9C9A95;
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 40px;
+      gap: 12px;
+      margin-bottom: 44px;
     }
     .section-label::after {
       content: '';
       flex: 1;
-      height: 0.5px;
-      background: rgba(15,15,14,0.1);
+      height: 1px;
+      background: rgba(10,10,9,0.08);
     }
 
-    /* ─── Eyebrow ────────────────────────────────────────────── */
+    /* Eyebrow above hero */
     .eyebrow {
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
+      font-weight: 600;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: #1B4FD8;
+      color: #1447E6;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -284,77 +252,195 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #1B4FD8;
+      background: #1447E6;
       flex-shrink: 0;
+      animation: pulse-dot 2.2s ease-in-out infinite;
     }
 
-    /* ─── Tag pill ───────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════
+       GLOBALBIT UI PATTERN 7 — service / feature cards
+       White, hairline border, no shadow, hover: border darkens
+       + very slight lift. Corners: 16px (rounder than before)
+    ══════════════════════════════════════════════ */
+    .service-card, .stage-card, .manifest-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(10,10,9,0.08);
+      border-radius: 16px;
+      padding: 24px;
+      transition: border-color 0.22s, transform 0.22s;
+    }
+    .service-card:hover, .stage-card:hover {
+      border-color: rgba(10,10,9,0.18);
+      transform: translateY(-3px);
+    }
+
+    /* ══════════════════════════════════════════════
+       GLOBALBIT UI PATTERN 8 — metrics bar
+       Full-width grid, thin vertical dividers, no shadow
+    ══════════════════════════════════════════════ */
+    .metric-cell {
+      background: #FFFFFF;
+      padding: 28px 24px;
+    }
+    .metric-divider { background: rgba(10,10,9,0.08); }
+
+    /* ══════════════════════════════════════════════
+       GLOBALBIT UI PATTERN 9 — tag chips
+       Pill shape, muted bg, slightly smaller text
+    ══════════════════════════════════════════════ */
+    .tech-chip {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: #5C5B57;
+      background: #EFEDE8;
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 1px solid rgba(10,10,9,0.07);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      transition: background 0.18s, color 0.18s;
+    }
+    .tech-chip-active {
+      background: #EBF0FF;
+      color: #1447E6;
+      border-color: rgba(20,71,230,0.18);
+    }
+
+    /* ══════════════════════════════════════════════
+       GLOBALBIT UI PATTERN 10 — tag pill (category)
+    ══════════════════════════════════════════════ */
     .tag-pill {
       display: inline-block;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      background: #EEF2FF;
-      color: #1B4FD8;
-      padding: 3px 9px;
-      border-radius: 4px;
+      background: #EBF0FF;
+      color: #1447E6;
+      padding: 4px 10px;
+      border-radius: 100px;
     }
 
-    /* ─── CTA form ───────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════
+       GLOBALBIT UI PATTERN 11 — trust / manifest accent bar
+       They use a short horizontal line above stat/title blocks
+    ══════════════════════════════════════════════ */
+    .accent-bar {
+      width: 32px;
+      height: 2px;
+      background: #1447E6;
+      margin-bottom: 14px;
+      border-radius: 0;
+    }
+
+    /* ══════════════════════════════════════════════
+       FORM — matching globalbit clean inputs
+    ══════════════════════════════════════════════ */
     .form-input {
       width: 100%;
       background: #FFFFFF;
-      border: 0.5px solid rgba(15,15,14,0.15);
-      border-radius: 7px;
-      padding: 11px 14px;
-      font-family: 'DM Sans', sans-serif;
+      border: 1px solid rgba(10,10,9,0.12);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
-      color: #0F0F0E;
+      font-weight: 400;
+      color: #0A0A09;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .form-input:focus {
-      border-color: #1B4FD8;
-      box-shadow: 0 0 0 3px rgba(27,79,216,0.08);
+      border-color: #1447E6;
+      box-shadow: 0 0 0 3px rgba(20,71,230,0.09);
     }
-    .form-input::placeholder { color: #A8A5A0; }
-
+    .form-input::placeholder { color: #9C9A95; }
     textarea.form-input { resize: vertical; min-height: 90px; }
+
+    /* ══════════════════════════════════════════════
+       MISC
+    ══════════════════════════════════════════════ */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.45; transform: scale(0.72); }
+    }
+    .pulse { animation: pulse-dot 1.9s ease-in-out infinite; }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 1.5s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .count-up { display: inline-block; }
+
+    .uptime-seg          { height: 4px; border-radius: 2px; flex: 1; background: #BBF7D0; }
+    .uptime-seg.incident { background: #FDE68A; }
+
+    /* Dot-grid bg texture */
+    .dot-grid {
+      background-image: radial-gradient(circle, rgba(10,10,9,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* ══════════════════════════════════════════════
+       GLOBALBIT PATTERN — section divider line
+       They use full-width hairline borders between major sections
+    ══════════════════════════════════════════════ */
+    .section-divider {
+      border: none;
+      border-top: 1px solid rgba(10,10,9,0.07);
+      margin: 0;
+    }
   </style>
 </head>
 
 <body class="bg-bg">
 
+  <!-- Full-page background animation canvas -->
+  <canvas id="bg-canvas" aria-hidden="true" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.42;
+  "></canvas>
+
   <!-- ════════════════════════════════════════
        NAV
   ════════════════════════════════════════ -->
-  <header class="bg-bg border-b border-thin sticky top-0 z-50" style="border-color: rgba(15,15,14,0.08);">
+  <header class="gb-nav sticky top-0 z-50" style="position: relative; z-index: 50;">
     <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
 
       <!-- Logo -->
-      <a href="https://80shere.github.io/pro1solai/#" class="font-display text-lg text-primary tracking-tight" style="letter-spacing:-0.02em;text-decoration:none;">Pro1Sol<span style="color:#1B4FD8;">ai</span></a>
+      <a href="https://80shere.github.io/pro1solai/#" class="font-display text-primary tracking-tight" style="font-family:'Plus Jakarta Sans', sans-serif;font-size:16px;font-weight:700;letter-spacing:-0.025em;text-decoration:none;">
+        Pro1Sol<span style="color:#1447E6;">ai</span>
+      </a>
 
+      <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-8">
         <a href="#services"        class="nav-link">Services</a>
         <a href="#how-we-work"     class="nav-link">How we work</a>
         <a href="#why-us"          class="nav-link">Why us</a>
-        <a href="#contact"         class="btn-primary" style="padding: 7px 16px; font-size: 12px;">
+        <a href="#contact" class="btn-primary" style="padding: 8px 18px; font-size: 12px;">
           Let's talk
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </nav>
 
       <!-- Mobile hamburger -->
       <button id="menu-toggle" class="md:hidden p-2" aria-label="Open menu">
-        <svg width="20" height="20" fill="none" stroke="#0F0F0E" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+        <svg width="20" height="20" fill="none" stroke="#0A0A09" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M3 6h18M3 12h18M3 18h18"/>
         </svg>
       </button>
     </div>
 
     <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-bg border-t border-thin px-6 pb-5 pt-4 flex flex-col gap-4" style="border-color: rgba(15,15,14,0.08);">
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-5 pt-4 flex flex-col gap-4" style="background: rgba(247,246,243,0.97); border-top: 1px solid rgba(10,10,9,0.07);">
       <a href="#services"    class="nav-link text-base">Services</a>
       <a href="#how-we-work" class="nav-link text-base">How we work</a>
       <a href="#why-us"      class="nav-link text-base">Why us</a>
@@ -366,12 +452,10 @@
   <!-- ════════════════════════════════════════
        BLOCK 1 — HERO
   ════════════════════════════════════════ -->
-  <section class="relative overflow-hidden" style="padding: 96px 0 80px;">
+  <section class="relative overflow-hidden" style="padding: 100px 0 88px;">
 
-    <!-- Hero canvas background -->
-    <canvas id="hero-canvas" class="absolute inset-0 pointer-events-none" style="width:100%;height:100%;opacity:0.45;" aria-hidden="true"></canvas>
-    <!-- Grid texture -->
-    <div class="grid-texture absolute inset-0 pointer-events-none" style="opacity:0.55;" aria-hidden="true"></div>
+    <!-- Dot-grid texture (globalbit pattern) -->
+    <div class="dot-grid absolute inset-0 pointer-events-none" style="opacity:0.6;" aria-hidden="true"></div>
 
     <div class="relative max-w-6xl mx-auto px-6">
 
@@ -382,27 +466,50 @@
       </div>
 
       <!-- Main headline -->
-      <h1 class="font-display reveal reveal-delay-1 text-primary mb-6"
-          style="font-size: clamp(36px, 6vw, 64px); line-height: 1.06; letter-spacing: -0.025em; max-width: 760px;">
+      <h1 class="font-display reveal reveal-delay-1"
+          style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:clamp(36px,6vw,68px);line-height:1.04;letter-spacing:-0.04em;color:#0A0A09;max-width:780px;margin-bottom:24px;">
         We build systems that eliminate
-        <em style="font-style: italic; color: #1B4FD8;">operational drag</em>
+        <em style="font-style:italic;color:#1447E6;font-weight:800;">operational drag</em>
         at enterprise scale
       </h1>
 
       <!-- Sub -->
-      <p class="reveal reveal-delay-2 text-secondary mb-8"
-         style="font-size: 16px; font-weight: 300; line-height: 1.7; max-width: 520px;">
-        Custom development, AI solutions, and deep system integration for enterprises that have outgrown fragile workarounds and manual operations.
+      <p class="reveal reveal-delay-2"
+         style="font-size: 16px; font-weight: 400; line-height: 1.65; max-width: 540px; color: #5C5B57; margin-bottom: 28px; letter-spacing: -0.005em;">
+        Custom development, AI solutions, automation &amp; integration, and digital transformation
+        for enterprises that have outgrown fragile workarounds and manual operations.
       </p>
+
+      <!-- Outcome bullets -->
+      <div class="reveal reveal-delay-2" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px;">
+        <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:400;color:#5C5B57;">
+          <span style="width:18px;height:18px;border-radius:50%;background:#EBF0FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="10" height="10" fill="none" stroke="#1447E6" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          –74% manual operations eliminated
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:400;color:#5C5B57;">
+          <span style="width:18px;height:18px;border-radius:50%;background:#EBF0FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="10" height="10" fill="none" stroke="#1447E6" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          87%+ automation coverage on delivered projects
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:13px;font-weight:400;color:#5C5B57;">
+          <span style="width:18px;height:18px;border-radius:50%;background:#EBF0FF;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="10" height="10" fill="none" stroke="#1447E6" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          99.9% uptime across integration channels
+        </div>
+      </div>
 
       <!-- CTAs -->
       <div class="reveal reveal-delay-3 flex flex-wrap gap-3 mb-16">
         <a href="#contact" class="btn-primary">
-          Let's talk architecture
+          Schedule architecture session
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="#services" class="btn-ghost">
-          See what we do
+        <a href="#contact" class="btn-ghost">
+          Get 5-day express audit
         </a>
       </div>
 
@@ -413,28 +520,28 @@
 
           <div class="metric-cell border-r border-b md:border-b-0 metric-divider">
             <div class="font-display text-4xl text-primary leading-none mb-2" style="letter-spacing: -0.03em;">
-              <span class="count-up" data-target="12">0</span><span style="color:#1B4FD8; font-size: 24px;">+</span>
+              <span class="count-up" data-target="12">0</span><span style="color:#1447E6; font-size: 24px;">+</span>
             </div>
             <div class="text-tertiary" style="font-size: 12px; line-height: 1.4;">Years building<br>enterprise systems</div>
           </div>
 
           <div class="metric-cell border-b md:border-b-0 md:border-r metric-divider">
             <div class="font-display text-4xl text-primary leading-none mb-2" style="letter-spacing: -0.03em;">
-              <span class="count-up" data-target="100">0</span><span style="color:#1B4FD8; font-size: 24px;">+</span>
+              <span class="count-up" data-target="100">0</span><span style="color:#1447E6; font-size: 24px;">+</span>
             </div>
             <div class="text-tertiary" style="font-size: 12px; line-height: 1.4;">Live automated<br>flows in production</div>
           </div>
 
           <div class="metric-cell border-r metric-divider">
             <div class="font-display text-4xl text-primary leading-none mb-2" style="letter-spacing: -0.03em;">
-              99.9<span style="color:#1B4FD8; font-size: 24px;">%</span>
+              99.9<span style="color:#1447E6; font-size: 24px;">%</span>
             </div>
             <div class="text-tertiary" style="font-size: 12px; line-height: 1.4;">Uptime on secure<br>integration channels</div>
           </div>
 
           <div class="metric-cell">
             <div class="font-display text-4xl text-primary leading-none mb-2" style="letter-spacing: -0.03em;">
-              <span class="count-up" data-target="50">0</span><span style="color:#1B4FD8; font-size: 24px;">+</span>
+              <span class="count-up" data-target="50">0</span><span style="color:#1447E6; font-size: 24px;">+</span>
             </div>
             <div class="text-tertiary" style="font-size: 12px; line-height: 1.4;">Full go-lives delivered<br>on time &amp; on budget</div>
           </div>
@@ -458,24 +565,24 @@
 
         <!-- AI Solutions -->
         <div class="service-card reveal">
-          <div style="font-size: 20px; color: #1B4FD8; margin-bottom: 12px;" aria-hidden="true">
+          <div style="font-size: 20px; color: #1447E6; margin-bottom: 12px;" aria-hidden="true">
             <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9.5 3H5a2 2 0 0 0-2 2v4.5M9.5 3l5 5M9.5 3v3.5a2 2 0 0 0 2 2H15M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9.5M15 3l-5.5 5.5"/><circle cx="12" cy="16" r="2"/><path d="M12 14v-2"/></svg>
           </div>
           <div class="tag-pill mb-3">AI Solutions</div>
-          <h3 class="font-display text-primary mb-3" style="font-size: 20px; line-height: 1.2; letter-spacing: -0.01em;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:600;font-size:19px;line-height:1.22;letter-spacing:-0.015em;color:#0A0A09;" class="mb-3">
             Intelligent automation embedded in your existing stack
           </h3>
           <ul class="space-y-2 mb-4">
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               AI agents that read, classify, and route documents before a human ever sees them — deployed inside your CRM or ERP workflow.
             </li>
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               LLM-powered assistants scoped to your data, running in your infrastructure — no third-party data exposure.
             </li>
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               Predictive models for demand, churn, and process exceptions — integrated as live signals, not a separate BI layer.
             </li>
           </ul>
@@ -489,24 +596,24 @@
 
         <!-- Automation & Integration -->
         <div class="service-card reveal reveal-delay-1">
-          <div style="font-size: 20px; color: #1B4FD8; margin-bottom: 12px;" aria-hidden="true">
+          <div style="font-size: 20px; color: #1447E6; margin-bottom: 12px;" aria-hidden="true">
             <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 6h10M7 18h10M10 12H7a2 2 0 0 1-2-2V8M14 12h3a2 2 0 0 0 2-2V8M10 12v2a2 2 0 0 1-2 2H5M14 12v2a2 2 0 0 0 2 2h3"/></svg>
           </div>
           <div class="tag-pill mb-3">Automation &amp; Integration</div>
-          <h3 class="font-display text-primary mb-3" style="font-size: 20px; line-height: 1.2; letter-spacing: -0.01em;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:600;font-size:19px;line-height:1.22;letter-spacing:-0.015em;color:#0A0A09;" class="mb-3">
             Systems that talk to each other — without constant maintenance
           </h3>
           <ul class="space-y-2 mb-4">
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               100+ live automated integration flows between CRM, ERP, and Cloud services — real-time sync, versioned, documented.
             </li>
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               Processes that take 3 hours run in 12 minutes — zero manual input, full audit trail, no double entry.
             </li>
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               Integration architecture that survives ERP upgrades — we design for the version after next.
             </li>
           </ul>
@@ -520,24 +627,24 @@
 
         <!-- Digital Transformation -->
         <div class="service-card reveal reveal-delay-2">
-          <div style="font-size: 20px; color: #1B4FD8; margin-bottom: 12px;" aria-hidden="true">
+          <div style="font-size: 20px; color: #1447E6; margin-bottom: 12px;" aria-hidden="true">
             <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/><path d="M16 12h-4"/></svg>
           </div>
           <div class="tag-pill mb-3">Digital Transformation</div>
-          <h3 class="font-display text-primary mb-3" style="font-size: 20px; line-height: 1.2; letter-spacing: -0.01em;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:600;font-size:19px;line-height:1.22;letter-spacing:-0.015em;color:#0A0A09;" class="mb-3">
             From chaotic IT landscape to a managed, scalable architecture
           </h3>
           <ul class="space-y-2 mb-4">
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               We audit your current landscape, map every integration point, and identify what's costing you money silently — before proposing a single change.
             </li>
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               Architecture-led modernization: AS-IS → TO-BE, with a migration path that doesn't stop the business.
             </li>
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               Your system stops being a single-person dependency. Legible, transferable, scalable with your headcount.
             </li>
           </ul>
@@ -550,24 +657,24 @@
 
         <!-- Custom Development -->
         <div class="service-card reveal reveal-delay-3">
-          <div style="font-size: 20px; color: #1B4FD8; margin-bottom: 12px;" aria-hidden="true">
+          <div style="font-size: 20px; color: #1447E6; margin-bottom: 12px;" aria-hidden="true">
             <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
           </div>
           <div class="tag-pill mb-3">Custom Development</div>
-          <h3 class="font-display text-primary mb-3" style="font-size: 20px; line-height: 1.2; letter-spacing: -0.01em;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:600;font-size:19px;line-height:1.22;letter-spacing:-0.015em;color:#0A0A09;" class="mb-3">
             Built for your process — not adapted from a template
           </h3>
           <ul class="space-y-2 mb-4">
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               No feature bloat, no licensing overhead, no vendor negotiation — built exactly for your workflow.
             </li>
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               Internal tools, integration services, and enterprise platforms your team can actually maintain.
             </li>
             <li class="flex gap-2 items-start text-secondary" style="font-size: 13px; line-height: 1.6;">
-              <span style="color:#1B4FD8; margin-top: 3px; flex-shrink: 0;">—</span>
+              <span style="color:#1447E6; margin-top: 3px; flex-shrink: 0;">—</span>
               Full codebase and documentation ownership transferred on delivery. No lock-in, ever.
             </li>
           </ul>
@@ -596,7 +703,7 @@
       <div class="section-label reveal">We step in at any stage</div>
 
       <div class="mb-10 reveal">
-        <h2 class="font-display text-primary" style="font-size: clamp(28px, 4vw, 44px); line-height: 1.1; letter-spacing: -0.02em; max-width: 560px;">
+        <h2 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:700;font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-0.025em;color:#0A0A09;max-width:560px;">
           Wherever you are in the project lifecycle — we fit in.
         </h2>
       </div>
@@ -604,8 +711,8 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
         <div class="stage-card reveal">
-          <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #EEF2FF; color: #1B4FD8; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">Greenfield</div>
-          <h3 class="font-display text-primary mb-3" style="font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;">
+          <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #EEF2FF; color: #1447E6; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">Greenfield</div>
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:600;font-size:18px;line-height:1.25;letter-spacing:-0.012em;color:#0A0A09;" class="mb-3">
             Start with architecture, not with code
           </h3>
           <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
@@ -615,7 +722,7 @@
 
         <div class="stage-card reveal reveal-delay-1">
           <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #D1FAE5; color: #065F46; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">MVP in weeks</div>
-          <h3 class="font-display text-primary mb-3" style="font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:600;font-size:18px;line-height:1.25;letter-spacing:-0.012em;color:#0A0A09;" class="mb-3">
             A working product before your next board meeting
           </h3>
           <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
@@ -625,7 +732,7 @@
 
         <div class="stage-card reveal reveal-delay-2">
           <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #FEE2E2; color: #991B1B; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">Project rescue</div>
-          <h3 class="font-display text-primary mb-3" style="font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:600;font-size:18px;line-height:1.25;letter-spacing:-0.012em;color:#0A0A09;" class="mb-3">
             We've seen what "almost done" actually means
           </h3>
           <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
@@ -635,7 +742,7 @@
 
         <div class="stage-card reveal reveal-delay-3">
           <div style="display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; background: #DBEAFE; color: #1E40AF; padding: 3px 9px; border-radius: 4px; margin-bottom: 14px;">Team augmentation</div>
-          <h3 class="font-display text-primary mb-3" style="font-size: 18px; line-height: 1.25; letter-spacing: -0.01em;">
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:600;font-size:18px;line-height:1.25;letter-spacing:-0.012em;color:#0A0A09;" class="mb-3">
             Senior capacity, without the senior hiring process
           </h3>
           <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
@@ -649,9 +756,104 @@
 
 
   <!-- ════════════════════════════════════════
+       USE CASES & OUTCOMES
+  ════════════════════════════════════════ -->
+  <section id="use-cases" style="padding: 96px 0;">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="section-label reveal">Use cases &amp; outcomes</div>
+
+      <div class="reveal mb-12">
+        <h2 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:clamp(26px,3.5vw,40px);line-height:1.08;letter-spacing:-0.03em;color:#0A0A09;max-width:540px;">
+          Problems we solve —<br>with measurable results
+        </h2>
+      </div>
+
+      <!-- Aggregate metrics strip -->
+      <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:rgba(10,10,9,0.08);border:1px solid rgba(10,10,9,0.08);border-radius:14px;overflow:hidden;margin-bottom:48px;">
+        <div style="background:#FFFFFF;padding:20px 18px;text-align:center;">
+          <div style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.03em;color:#0A0A09;line-height:1;">87%<span style="color:#1447E6;font-size:18px;">+</span></div>
+          <div style="font-size:11px;color:#9C9A95;margin-top:4px;line-height:1.4;">Automation<br>coverage</div>
+        </div>
+        <div style="background:#FFFFFF;padding:20px 18px;text-align:center;">
+          <div style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.03em;color:#0A0A09;line-height:1;">–74%</div>
+          <div style="font-size:11px;color:#9C9A95;margin-top:4px;line-height:1.4;">Manual ops<br>eliminated</div>
+        </div>
+        <div style="background:#FFFFFF;padding:20px 18px;text-align:center;">
+          <div style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.03em;color:#0A0A09;line-height:1;">50<span style="color:#1447E6;font-size:18px;">+</span></div>
+          <div style="font-size:11px;color:#9C9A95;margin-top:4px;line-height:1.4;">Enterprise<br>go-lives</div>
+        </div>
+        <div style="background:#FFFFFF;padding:20px 18px;text-align:center;">
+          <div style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.03em;color:#0A0A09;line-height:1;">100<span style="color:#1447E6;font-size:18px;">+</span></div>
+          <div style="font-size:11px;color:#9C9A95;margin-top:4px;line-height:1.4;">Automated<br>flows live</div>
+        </div>
+        <div style="background:#FFFFFF;padding:20px 18px;text-align:center;">
+          <div style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.03em;color:#0A0A09;line-height:1;">99.9%</div>
+          <div style="font-size:11px;color:#9C9A95;margin-top:4px;line-height:1.4;">Uptime on<br>integrations</div>
+        </div>
+      </div>
+
+      <!-- Use case cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="service-card reveal" style="border-left:3px solid #1447E6;border-radius:0 16px 16px 0;">
+          <div class="tag-pill mb-3">AI Solutions</div>
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.02em;color:#0A0A09;margin-bottom:10px;line-height:1.3;">AI copilot over enterprise CRM & ERP</h3>
+          <div style="font-size:12px;color:#9C9A95;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Problem</div>
+          <p style="font-size:13px;color:#5C5B57;margin-bottom:10px;line-height:1.6;">Support teams spending hours searching across disconnected systems for customer context. No single view — just tabs, exports, and guesswork.</p>
+          <div style="font-size:12px;color:#9C9A95;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Approach</div>
+          <p style="font-size:13px;color:#5C5B57;margin-bottom:10px;line-height:1.6;">LLM-powered assistant embedded in existing CRM — surfaces order history, contracts, and service data in plain language. No migration required.</p>
+          <div style="background:#EBF0FF;border-radius:8px;padding:10px 14px;font-size:12px;color:#1447E6;font-weight:500;">
+            Result: –60% avg. handle time · 3× faster escalation resolution
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-1" style="border-left:3px solid #0891b2;border-radius:0 16px 16px 0;">
+          <div style="display:inline-block;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:#E0F7FA;color:#0E7490;padding:4px 10px;border-radius:100px;margin-bottom:12px;">Automation &amp; Integration</div>
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.02em;color:#0A0A09;margin-bottom:10px;line-height:1.3;">Back-office process automation</h3>
+          <div style="font-size:12px;color:#9C9A95;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Problem</div>
+          <p style="font-size:13px;color:#5C5B57;margin-bottom:10px;line-height:1.6;">Finance team manually transferring order data between CRM, ERP, and accounting — 3 hours/day per operator, 15–20% error rate at peak.</p>
+          <div style="font-size:12px;color:#9C9A95;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Approach</div>
+          <p style="font-size:13px;color:#5C5B57;margin-bottom:10px;line-height:1.6;">End-to-end integration flow: CRM trigger → transformation → ERP write-back with validation and dead-letter alerting. Deployed in 5 weeks.</p>
+          <div style="background:#E0F7FA;border-radius:8px;padding:10px 14px;font-size:12px;color:#0E7490;font-weight:500;">
+            Result: –91% processing time · 0 lost orders in 6 months post-launch
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2" style="border-left:3px solid #7c3aed;border-radius:0 16px 16px 0;">
+          <div style="display:inline-block;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:#EDE9FE;color:#5B21B6;padding:4px 10px;border-radius:100px;margin-bottom:12px;">Digital Transformation</div>
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.02em;color:#0A0A09;margin-bottom:10px;line-height:1.3;">Legacy modernisation & architecture cleanup</h3>
+          <div style="font-size:12px;color:#9C9A95;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Problem</div>
+          <p style="font-size:13px;color:#5C5B57;margin-bottom:10px;line-height:1.6;">12 years of point-to-point integrations — no documentation, one engineer who understood it, ERP upgrade blocked for 18 months.</p>
+          <div style="font-size:12px;color:#9C9A95;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Approach</div>
+          <p style="font-size:13px;color:#5C5B57;margin-bottom:10px;line-height:1.6;">Full AS-IS audit → integration blueprint → phased migration to managed platform. Every flow documented, versioned, and tested before cutover.</p>
+          <div style="background:#EDE9FE;border-radius:8px;padding:10px 14px;font-size:12px;color:#5B21B6;font-weight:500;">
+            Result: ERP upgrade unblocked · bus factor reduced from 1 to 0
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-3" style="border-left:3px solid #059669;border-radius:0 16px 16px 0;">
+          <div style="display:inline-block;font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:100px;margin-bottom:12px;">Custom Development</div>
+          <h3 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.02em;color:#0A0A09;margin-bottom:10px;line-height:1.3;">Custom integration layer replacing vendor lock-in</h3>
+          <div style="font-size:12px;color:#9C9A95;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Problem</div>
+          <p style="font-size:13px;color:#5C5B57;margin-bottom:10px;line-height:1.6;">Mid-market manufacturer paying $180K/year for an iPaaS platform using 8% of its features. Vendor locked every customisation behind premium tiers.</p>
+          <div style="font-size:12px;color:#9C9A95;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Approach</div>
+          <p style="font-size:13px;color:#5C5B57;margin-bottom:10px;line-height:1.6;">Purpose-built integration service: REST API layer + event-driven architecture. Full ownership transferred. Cloud-native, runs on existing infra.</p>
+          <div style="background:#D1FAE5;border-radius:8px;padding:10px 14px;font-size:12px;color:#065F46;font-weight:500;">
+            Result: –$140K/year licensing · 4-month payback · zero feature trade-offs
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ════════════════════════════════════════
        ARCHITECT TRUST BLOCK
   ════════════════════════════════════════ -->
-  <section style="padding: 80px 0; background: #F2F0EC;">
+  <section style="padding: 80px 0; background: #EFEDE8;">
     <div class="max-w-6xl mx-auto px-6">
 
       <div class="section-label reveal">The architect behind the work</div>
@@ -659,13 +861,13 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
 
         <div class="reveal">
-          <h2 class="font-display text-primary mb-4" style="font-size: clamp(26px, 3.5vw, 38px); line-height: 1.12; letter-spacing: -0.02em;">
+          <h2 style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:700;font-size:clamp(26px,3.5vw,36px);line-height:1.12;letter-spacing:-0.022em;color:#0A0A09;" class="mb-4">
             Integration Architect &amp; Tech Lead, 12+ years in enterprise landscapes
           </h2>
-          <p class="text-secondary mb-6" style="font-size: 14px; font-weight: 300; line-height: 1.7;">
+          <p class="text-secondary mb-6" style="font-size: 14px; font-weight: 400; line-height: 1.65;">
             Sales & Service Cloud, CRM — plus full-stack engineering. Positioned as the architect of mixed dev teams, not just an integration developer.
           </p>
-          <p class="text-secondary" style="font-size: 14px; font-weight: 300; line-height: 1.7;">
+          <p class="text-secondary" style="font-size: 14px; font-weight: 400; line-height: 1.65;">
             The person teams call when something complex is unclear or on fire: makes sense of chaotic requirements, formalises them, designs the architecture, and takes personal accountability for integrations.
           </p>
         </div>
@@ -673,7 +875,7 @@
         <!-- KPI widget -->
         <div class="reveal reveal-delay-1">
           <div class="bg-card border-thin rounded-xl p-6" style="border-color: rgba(15,15,14,0.09);">
-            <div style="font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #A8A5A0; margin-bottom: 20px;">
+            <div style="font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #9C9A95; margin-bottom: 20px;">
               Delivered outcomes
             </div>
 
@@ -681,30 +883,30 @@
 
               <div>
                 <div class="flex justify-between mb-1">
-                  <span style="font-size: 12px; color: #6B6860;">Automation coverage across projects</span>
-                  <span style="font-size: 12px; font-weight: 500; color: #0F0F0E;">87%</span>
+                  <span style="font-size: 12px; color: #5C5B57;">Automation coverage across projects</span>
+                  <span style="font-size: 12px; font-weight: 500; color: #0A0A09;">87%</span>
                 </div>
-                <div style="height: 3px; background: #F2F0EC; border-radius: 2px; overflow: hidden;">
-                  <div class="progress-fill" data-width="87" style="background: #1B4FD8;"></div>
+                <div style="height: 3px; background: #EFEDE8; border-radius: 2px; overflow: hidden;">
+                  <div class="progress-fill" data-width="87" style="background: #1447E6;"></div>
                 </div>
               </div>
 
               <div>
                 <div class="flex justify-between mb-1">
-                  <span style="font-size: 12px; color: #6B6860;">Integration channel uptime</span>
-                  <span style="font-size: 12px; font-weight: 500; color: #0F0F0E;">99.9%</span>
+                  <span style="font-size: 12px; color: #5C5B57;">Integration channel uptime</span>
+                  <span style="font-size: 12px; font-weight: 500; color: #0A0A09;">99.9%</span>
                 </div>
-                <div style="height: 3px; background: #F2F0EC; border-radius: 2px; overflow: hidden;">
+                <div style="height: 3px; background: #EFEDE8; border-radius: 2px; overflow: hidden;">
                   <div class="progress-fill" data-width="99" style="background: #22c55e;"></div>
                 </div>
               </div>
 
               <div>
                 <div class="flex justify-between mb-1">
-                  <span style="font-size: 12px; color: #6B6860;">Manual operations eliminated</span>
-                  <span style="font-size: 12px; font-weight: 500; color: #0F0F0E;">–74%</span>
+                  <span style="font-size: 12px; color: #5C5B57;">Manual operations eliminated</span>
+                  <span style="font-size: 12px; font-weight: 500; color: #0A0A09;">–74%</span>
                 </div>
-                <div style="height: 3px; background: #F2F0EC; border-radius: 2px; overflow: hidden;">
+                <div style="height: 3px; background: #EFEDE8; border-radius: 2px; overflow: hidden;">
                   <div class="progress-fill" data-width="74" style="background: #f59e0b;"></div>
                 </div>
               </div>
@@ -713,12 +915,12 @@
 
             <div class="grid grid-cols-2 gap-3 mt-6 pt-5" style="border-top: 0.5px solid rgba(15,15,14,0.09);">
               <div>
-                <div class="font-display text-primary" style="font-size: 26px; letter-spacing: -0.03em;">50<span style="color:#1B4FD8; font-size: 18px;">+</span></div>
-                <div style="font-size: 11px; color: #A8A5A0; margin-top: 2px;">Full go-lives,<br>scoping to production</div>
+                <div class="font-display text-primary" style="font-size: 26px; letter-spacing: -0.03em;">50<span style="color:#1447E6; font-size: 18px;">+</span></div>
+                <div style="font-size: 11px; color: #9C9A95; margin-top: 2px;">Full go-lives,<br>scoping to production</div>
               </div>
               <div>
-                <div class="font-display text-primary" style="font-size: 26px; letter-spacing: -0.03em;">100<span style="color:#1B4FD8; font-size: 18px;">+</span></div>
-                <div style="font-size: 11px; color: #A8A5A0; margin-top: 2px;">Automated flows live in<br>enterprise production</div>
+                <div class="font-display text-primary" style="font-size: 26px; letter-spacing: -0.03em;">100<span style="color:#1447E6; font-size: 18px;">+</span></div>
+                <div style="font-size: 11px; color: #9C9A95; margin-top: 2px;">Automated flows live in<br>enterprise production</div>
               </div>
             </div>
           </div>
@@ -729,32 +931,32 @@
       <!-- Bullet capabilities -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-10">
         <div class="reveal bg-card border-thin rounded-xl p-5" style="border-color: rgba(15,15,14,0.09);">
-          <div style="font-size: 16px; color: #1B4FD8; margin-bottom: 8px;" aria-hidden="true">
+          <div style="font-size: 16px; color: #1447E6; margin-bottom: 8px;" aria-hidden="true">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </div>
-          <div style="font-size: 12px; font-weight: 500; color: #0F0F0E; margin-bottom: 4px;">Define architecture</div>
-          <div style="font-size: 11px; color: #6B6860; line-height: 1.5;">Technical direction for mixed custom dev teams</div>
+          <div style="font-size: 12px; font-weight: 500; color: #0A0A09; margin-bottom: 4px;">Define architecture</div>
+          <div style="font-size: 11px; color: #5C5B57; line-height: 1.5;">Technical direction for mixed custom dev teams</div>
         </div>
         <div class="reveal reveal-delay-1 bg-card border-thin rounded-xl p-5" style="border-color: rgba(15,15,14,0.09);">
-          <div style="font-size: 16px; color: #1B4FD8; margin-bottom: 8px;" aria-hidden="true">
+          <div style="font-size: 16px; color: #1447E6; margin-bottom: 8px;" aria-hidden="true">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           </div>
-          <div style="font-size: 12px; font-weight: 500; color: #0F0F0E; margin-bottom: 4px;">Code review &amp; standards</div>
-          <div style="font-size: 11px; color: #6B6860; line-height: 1.5;">Quality gates that accelerate releases, not block them</div>
+          <div style="font-size: 12px; font-weight: 500; color: #0A0A09; margin-bottom: 4px;">Code review &amp; standards</div>
+          <div style="font-size: 11px; color: #5C5B57; line-height: 1.5;">Quality gates that accelerate releases, not block them</div>
         </div>
         <div class="reveal reveal-delay-2 bg-card border-thin rounded-xl p-5" style="border-color: rgba(15,15,14,0.09);">
-          <div style="font-size: 16px; color: #1B4FD8; margin-bottom: 8px;" aria-hidden="true">
+          <div style="font-size: 16px; color: #1447E6; margin-bottom: 8px;" aria-hidden="true">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
           </div>
-          <div style="font-size: 12px; font-weight: 500; color: #0F0F0E; margin-bottom: 4px;">Translate requirements</div>
-          <div style="font-size: 11px; color: #6B6860; line-height: 1.5;">From vague business asks to precise technical roadmaps</div>
+          <div style="font-size: 12px; font-weight: 500; color: #0A0A09; margin-bottom: 4px;">Translate requirements</div>
+          <div style="font-size: 11px; color: #5C5B57; line-height: 1.5;">From vague business asks to precise technical roadmaps</div>
         </div>
         <div class="reveal reveal-delay-3 bg-card border-thin rounded-xl p-5" style="border-color: rgba(15,15,14,0.09);">
-          <div style="font-size: 16px; color: #1B4FD8; margin-bottom: 8px;" aria-hidden="true">
+          <div style="font-size: 16px; color: #1447E6; margin-bottom: 8px;" aria-hidden="true">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
-          <div style="font-size: 12px; font-weight: 500; color: #0F0F0E; margin-bottom: 4px;">Escalation point</div>
-          <div style="font-size: 11px; color: #6B6860; line-height: 1.5;">Personal accountability for integrations when incidents happen</div>
+          <div style="font-size: 12px; font-weight: 500; color: #0A0A09; margin-bottom: 4px;">Escalation point</div>
+          <div style="font-size: 11px; color: #5C5B57; line-height: 1.5;">Personal accountability for integrations when incidents happen</div>
         </div>
       </div>
 
@@ -773,32 +975,32 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
         <div class="manifest-card reveal">
-          <div style="width: 28px; height: 2px; background: #1B4FD8; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
-          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0F0F0E; margin-bottom: 8px;">AI-first engineering</div>
+          <div style="width: 28px; height: 2px; background: #1447E6; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #0A0A09; margin-bottom: 8px;">AI-first engineering</div>
           <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
             We use AI agents in our own development workflow — which means faster delivery, higher test coverage, and documentation that actually exists when the project closes.
           </p>
         </div>
 
         <div class="manifest-card reveal reveal-delay-1">
-          <div style="width: 28px; height: 2px; background: #1B4FD8; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
-          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0F0F0E; margin-bottom: 8px;">Full accountability</div>
+          <div style="width: 28px; height: 2px; background: #1447E6; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #0A0A09; margin-bottom: 8px;">Full accountability</div>
           <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
             One point of contact. One team that owns the outcome from architecture to deployment — not a relay race between consultants, developers, and project managers.
           </p>
         </div>
 
         <div class="manifest-card reveal reveal-delay-2">
-          <div style="width: 28px; height: 2px; background: #1B4FD8; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
-          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0F0F0E; margin-bottom: 8px;">No architecture debt</div>
+          <div style="width: 28px; height: 2px; background: #1447E6; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #0A0A09; margin-bottom: 8px;">No architecture debt</div>
           <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
             We design for the system you'll have in two years, not just the one you need today. Every integration is versioned; every service is replaceable without rebuilding the whole.
           </p>
         </div>
 
         <div class="manifest-card reveal reveal-delay-3">
-          <div style="width: 28px; height: 2px; background: #1B4FD8; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
-          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #0F0F0E; margin-bottom: 8px;">Honest before comfortable</div>
+          <div style="width: 28px; height: 2px; background: #1447E6; border-radius: 0; margin-bottom: 12px;" aria-hidden="true"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #0A0A09; margin-bottom: 8px;">Honest before comfortable</div>
           <p class="text-secondary" style="font-size: 13px; line-height: 1.65;">
             If the automation won't pay back in under 12 months, we'll tell you before the contract is signed. We'd rather lose the project than deliver something you'll regret funding.
           </p>
@@ -818,30 +1020,30 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
         <div class="reveal bg-card border-thin rounded-xl p-6" style="border-color: rgba(15,15,14,0.09);">
-          <div style="font-size: 18px; color: #1B4FD8; margin-bottom: 10px;" aria-hidden="true">
+          <div style="font-size: 18px; color: #1447E6; margin-bottom: 10px;" aria-hidden="true">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <div style="font-size: 13px; font-weight: 500; color: #0F0F0E; margin-bottom: 6px;">Data security without compromise</div>
+          <div style="font-size: 13px; font-weight: 500; color: #0A0A09; margin-bottom: 6px;">Data security without compromise</div>
           <p class="text-secondary" style="font-size: 12px; line-height: 1.6;">
             Your data never touches our servers. Every integration is built on least-privilege access. NDA signed before the first call. Architecture compliant with GDPR and 152-FZ on request.
           </p>
         </div>
 
         <div class="reveal reveal-delay-1 bg-card border-thin rounded-xl p-6" style="border-color: rgba(15,15,14,0.09);">
-          <div style="font-size: 18px; color: #1B4FD8; margin-bottom: 10px;" aria-hidden="true">
+          <div style="font-size: 18px; color: #1447E6; margin-bottom: 10px;" aria-hidden="true">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <div style="font-size: 13px; font-weight: 500; color: #0F0F0E; margin-bottom: 6px;">Support is a product, not a promise</div>
+          <div style="font-size: 13px; font-weight: 500; color: #0A0A09; margin-bottom: 6px;">Support is a product, not a promise</div>
           <p class="text-secondary" style="font-size: 12px; line-height: 1.6;">
             After go-live: documentation, SOPs for your team, and 4 weeks of included support. We close the project only after your team operates independently. Extended SLA available.
           </p>
         </div>
 
         <div class="reveal reveal-delay-2 bg-card border-thin rounded-xl p-6" style="border-color: rgba(15,15,14,0.09);">
-          <div style="font-size: 18px; color: #1B4FD8; margin-bottom: 10px;" aria-hidden="true">
+          <div style="font-size: 18px; color: #1447E6; margin-bottom: 10px;" aria-hidden="true">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           </div>
-          <div style="font-size: 13px; font-weight: 500; color: #0F0F0E; margin-bottom: 6px;">Financial transparency from day one</div>
+          <div style="font-size: 13px; font-weight: 500; color: #0A0A09; margin-bottom: 6px;">Financial transparency from day one</div>
           <p class="text-secondary" style="font-size: 12px; line-height: 1.6;">
             Detailed scope breakdown before work starts. Budget is fixed or we explain openly why it can't be. Payment by stage: the next phase only begins after the previous one is signed off.
           </p>
@@ -855,7 +1057,7 @@
   <!-- ════════════════════════════════════════
        BLOCK 9 — FINAL CTA / CONTACT FORM
   ════════════════════════════════════════ -->
-  <section id="contact" style="padding: 96px 0; background: #F2F0EC;">
+  <section id="contact" style="padding: 96px 0; background: #EFEDE8;">
     <div class="max-w-6xl mx-auto px-6">
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
@@ -870,22 +1072,22 @@
               style="font-size: clamp(28px, 4vw, 46px); line-height: 1.1; letter-spacing: -0.025em;">
             30 minutes.<br>
             No pitch.<br>
-            <em style="color: #1B4FD8; font-style: italic;">Just clarity.</em>
+            <em style="color: #1447E6; font-style: italic;">Just clarity.</em>
           </h2>
-          <p class="text-secondary mb-8" style="font-size: 14px; font-weight: 300; line-height: 1.7; max-width: 380px;">
+          <p class="text-secondary mb-8" style="font-size: 14px; font-weight: 400; line-height: 1.65; max-width: 380px;">
             Tell us where you are. We'll tell you honestly whether we can help — and what the first step looks like. No proposal until you ask for one.
           </p>
           <div class="space-y-3">
             <div class="flex items-center gap-3 text-secondary" style="font-size: 13px;">
-              <svg width="14" height="14" fill="none" stroke="#1B4FD8" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#1447E6" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               Express integration audit — delivered in 5 business days
             </div>
             <div class="flex items-center gap-3 text-secondary" style="font-size: 13px;">
-              <svg width="14" height="14" fill="none" stroke="#1B4FD8" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#1447E6" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               NDA signed before the first conversation
             </div>
             <div class="flex items-center gap-3 text-secondary" style="font-size: 13px;">
-              <svg width="14" height="14" fill="none" stroke="#1B4FD8" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#1447E6" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
               No junior handoffs — you talk to the architect
             </div>
           </div>
@@ -894,45 +1096,69 @@
         <!-- Contact form -->
         <div class="reveal reveal-delay-1">
           <form class="bg-card border-thin rounded-xl p-7 flex flex-col gap-4"
-                style="border-color: rgba(15,15,14,0.09);"
+                style="border-color: rgba(10,10,9,0.09);"
                 onsubmit="handleFormSubmit(event)">
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label for="name" style="font-size: 11px; font-weight: 500; color: #6B6860; display: block; margin-bottom: 5px;">Your name</label>
+                <label for="name" style="font-size:11px;font-weight:500;color:#5C5B57;display:block;margin-bottom:5px;">Your name</label>
                 <input id="name" type="text" class="form-input" required />
               </div>
               <div>
-                <label for="email" style="font-size: 11px; font-weight: 500; color: #6B6860; display: block; margin-bottom: 5px;">Work email</label>
+                <label for="email" style="font-size:11px;font-weight:500;color:#5C5B57;display:block;margin-bottom:5px;">Work email</label>
                 <input id="email" type="email" class="form-input" required />
               </div>
             </div>
 
-            <div>
-              <label for="company" style="font-size: 11px; font-weight: 500; color: #6B6860; display: block; margin-bottom: 5px;">Company</label>
-              <input id="company" type="text" class="form-input" placeholder="Company name" />
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="company" style="font-size:11px;font-weight:500;color:#5C5B57;display:block;margin-bottom:5px;">Company</label>
+                <input id="company" type="text" class="form-input" />
+              </div>
+              <div>
+                <label for="role" style="font-size:11px;font-weight:500;color:#5C5B57;display:block;margin-bottom:5px;">Your role</label>
+                <select id="role" class="form-input" style="cursor:pointer;background:#fff;">
+                  <option value="" disabled selected>Select role</option>
+                  <option>CTO / Head of IT</option>
+                  <option>CEO / COO</option>
+                  <option>IT Director / Architect</option>
+                  <option>Operations / Process Owner</option>
+                  <option>Product / Project Manager</option>
+                  <option>Other</option>
+                </select>
+              </div>
             </div>
 
             <div>
-              <label for="message" style="font-size: 11px; font-weight: 500; color: #6B6860; display: block; margin-bottom: 5px;">What's the problem you're solving?</label>
-              <textarea id="message" class="form-input" placeholder="Briefly describe your current situation: systems involved, what's broken or slow, what outcome you're aiming for."></textarea>
+              <label for="message" style="font-size:11px;font-weight:500;color:#5C5B57;display:block;margin-bottom:5px;">Current landscape / problem</label>
+              <textarea id="message" class="form-input" placeholder="Briefly describe your situation: systems involved, what's broken or slow, what outcome you're aiming for."></textarea>
             </div>
 
-            <div class="flex items-center gap-3">
-              <input id="audit" type="checkbox" style="width: 14px; height: 14px; accent-color: #1B4FD8;" />
-              <label for="audit" style="font-size: 12px; color: #6B6860; cursor: pointer;">
-                I'd like a free express audit of my current integrations / processes
-              </label>
+            <div style="padding:14px 16px;background:#F7F6F3;border-radius:10px;border:1px solid rgba(10,10,9,0.07);">
+              <div style="font-size:10px;font-weight:500;color:#9C9A95;text-transform:uppercase;letter-spacing:.09em;margin-bottom:10px;">What would you like?</div>
+              <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;">
+                <input id="audit" type="checkbox" style="width:14px;height:14px;margin-top:2px;accent-color:#1447E6;flex-shrink:0;" />
+                <label for="audit" style="font-size:13px;color:#5C5B57;cursor:pointer;line-height:1.5;">
+                  <strong style="color:#0A0A09;font-weight:500;">5-day express audit</strong> — review of my integrations &amp; processes with a written findings report
+                </label>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:10px;">
+                <input id="ai-case" type="checkbox" style="width:14px;height:14px;margin-top:2px;accent-color:#1447E6;flex-shrink:0;" />
+                <label for="ai-case" style="font-size:13px;color:#5C5B57;cursor:pointer;line-height:1.5;">
+                  <strong style="color:#0A0A09;font-weight:500;">Discuss an AI use case</strong> — how AI can work inside my existing systems without a full rip-and-replace
+                </label>
+              </div>
             </div>
 
-            <button type="submit" class="btn-primary w-full justify-center" style="padding: 12px 20px; font-size: 14px;">
+            <button type="submit" class="btn-primary w-full justify-center" style="padding:12px 20px;font-size:14px;">
               Send message
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
 
-            <p id="form-success" style="display: none; font-size: 12px; color: #22c55e; text-align: center; margin-top: 4px;">
+            <p id="form-success" style="display:none;font-size:12px;color:#22c55e;text-align:center;margin-top:4px;">
               Message sent. We'll be in touch within one business day.
             </p>
+            <p id="form-error" style="display:none;font-size:12px;color:#DC2626;text-align:center;margin-top:4px;"></p>
 
           </form>
         </div>
@@ -945,15 +1171,16 @@
   <!-- ════════════════════════════════════════
        FOOTER
   ════════════════════════════════════════ -->
-  <footer style="padding: 32px 0; border-top: 0.5px solid rgba(15,15,14,0.09);">
+  <hr class="section-divider" />
+  <footer style="padding: 28px 0;">
     <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div class="font-display text-primary" style="font-size: 16px; letter-spacing: -0.02em;">
-        Pro1Sol<span style="color:#1B4FD8;">ai</span>
+      <div style="font-family:'Plus Jakarta Sans', sans-serif;font-weight:700;font-size:15px;letter-spacing:-0.025em;color:#0A0A09;">
+        Pro1Sol<span style="color:#1447E6;">ai</span>
       </div>
-      <div style="font-size: 12px; color: #A8A5A0;">
+      <div style="font-size: 12px; color: #9C9A95; letter-spacing: -0.01em;">
         Integration Architecture · AI Engineering · Custom Development
       </div>
-      <div style="font-size: 12px; color: #A8A5A0;">
+      <div style="font-size: 12px; color: #9C9A95;">
         &copy; 2025 — All rights reserved
       </div>
     </div>
@@ -1052,36 +1279,140 @@
     progressFills.forEach(el => progressObserver.observe(el));
 
 
-    /* ── Form submit (demo) ── */
+    /* ── Form submit — EmailJS ── */
+    /*
+      Your EmailJS template already has:
+        {{name}}, {{email}}, {{message}}, {{time}}, {{title}}
+      We also pass extra variables — add them to your template if you want them:
+        {{company}}, {{role}}, {{wants_audit}}, {{wants_ai}}
+
+      STEPS TO ACTIVATE:
+      1. emailjs.com → Account → General → copy your PUBLIC KEY
+      2. Email Services → your Gmail service → copy SERVICE ID
+      3. Email Templates → your template → copy TEMPLATE ID
+      4. Paste all three below replacing the placeholders
+    */
+    const EMAILJS_SERVICE_ID  = 'service_uxtwn7r';   /* ← replace */
+    const EMAILJS_TEMPLATE_ID = 'template_xywjjfb';  /* ← replace */
+    const EMAILJS_PUBLIC_KEY  = 'EOqZO4YbH1JgmLcgu';   /* ← replace */
+
     function handleFormSubmit(event) {
       event.preventDefault();
+
+      const btn     = event.target.querySelector('button[type="submit"]');
       const success = document.getElementById('form-success');
-      success.style.display = 'block';
-      event.target.querySelector('button[type="submit"]').textContent = 'Sent';
-      event.target.querySelector('button[type="submit"]').disabled = true;
+      const errEl   = document.getElementById('form-error');
+
+      /* Collect values — variable names match your EmailJS template exactly */
+      const name      = document.getElementById('name').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const company   = document.getElementById('company').value.trim();
+      const role      = document.getElementById('role').value;
+      const message   = document.getElementById('message').value.trim();
+      const wantAudit = document.getElementById('audit').checked;
+      const wantAI    = document.getElementById('ai-case').checked;
+
+      /* Loading state */
+      btn.innerHTML = 'Sending…';
+      btn.disabled  = true;
+      if (errEl) errEl.style.display = 'none';
+
+      /* Build full message body so {{message}} contains everything */
+      const fullMessage = [
+        message || '(no description)',
+        '',
+        'Company: '      + (company || '—'),
+        'Role: '         + (role    || '—'),
+        'Express audit: '+ (wantAudit ? 'Yes' : 'No'),
+        'AI use case: '  + (wantAI   ? 'Yes' : 'No'),
+      ].join('\n');
+
+      const now = new Date();
+      const timeStr = now.toLocaleString('en-GB', {
+        day:'2-digit', month:'short', year:'numeric',
+        hour:'2-digit', minute:'2-digit'
+      });
+
+      /* Matches your template variables exactly */
+      const templateParams = {
+        name,                            /* {{name}}    — sender's name       */
+        email,                           /* {{email}}   — reply-to address    */
+        message:  fullMessage,           /* {{message}} — full details block  */
+        time:     timeStr,               /* {{time}}    — submission time     */
+        title:    'New enquiry from ' + name + (company ? ' · ' + company : ''),
+        /* Extra fields (add to template if you want them separately) */
+        company:      company  || '—',
+        role:         role     || '—',
+        wants_audit:  wantAudit ? 'Yes — 5-day express audit' : 'No',
+        wants_ai:     wantAI   ? 'Yes — discuss AI use case'  : 'No',
+      };
+
+      /* Dev mode — IDs not yet set */
+      if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID') {
+        setTimeout(() => {
+          success.style.display = 'block';
+          success.textContent   = '✓ Form works. Replace the 3 IDs in the code to enable real delivery to peerfield@gmail.com.';
+          btn.innerHTML = 'Sent ✓';
+        }, 700);
+        return;
+      }
+
+      /* Init EmailJS with public key (safe to call multiple times) */
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+        .then(() => {
+          success.style.display = 'block';
+          success.textContent   = '✓ Message sent. We\'ll be in touch within one business day.';
+          btn.innerHTML = 'Sent ✓';
+          event.target.reset();
+        })
+        .catch((err) => {
+          console.error('EmailJS error:', err);
+          btn.innerHTML = 'Send message <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+          btn.disabled  = false;
+          if (errEl) {
+            errEl.style.display = 'block';
+            errEl.textContent   = 'Delivery failed. Please write directly to peerfield@gmail.com.';
+          }
+        });
     }
   </script>
 
-  <!-- ── Hero background canvas (very subtle) ── -->
+  <!-- ── Full-page background canvas animation ── -->
   <script>
   (function() {
-    const canvas = document.getElementById('hero-canvas');
+    const canvas = document.getElementById('bg-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
     const PAL = [
-      { r:27,  g:79,  b:216 },
-      { r:8,   g:145, b:178 },
-      { r:124, g:58,  b:237 },
+      { r:27,  g:79,  b:216 },   /* indigo  */
+      { r:8,   g:145, b:178 },   /* cyan    */
+      { r:124, g:58,  b:237 },   /* violet  */
     ];
 
-    let W, H, DPR, nodes = [], pulses = [], frame = 0, lastT = 0;
-    let mouse = { x: -999, y: -999 };
+    const CFG = {
+      nodeCount:  28,
+      connectR:   220,
+      mouseR:     190,
+      mouseK:     0.010,
+      pulseSpeed: 0.0052,
+      nodeSpeed:  0.20,
+      spawnEvery: 58,
+      syncEvery:  290,
+    };
 
+    let W, H, DPR;
+    let nodes = [], pulses = [];
+    let mouse  = { x: -9999, y: -9999 };
+    let frame  = 0, lastT = 0;
+
+    /* ── Resize: match true viewport ── */
     function resize() {
-      const rect = canvas.parentElement.getBoundingClientRect();
       DPR = Math.min(window.devicePixelRatio || 1, 2);
-      W = rect.width; H = rect.height;
+      W   = window.innerWidth;
+      H   = window.innerHeight;
       canvas.width  = W * DPR;
       canvas.height = H * DPR;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -1090,124 +1421,225 @@
     function mkNode(i) {
       const col = PAL[i % PAL.length];
       return {
-        x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18,
-        r: 1.8 + Math.random() * 1.6, col,
-        isAI: col === PAL[2],
-        alpha: .4 + Math.random() * .35,
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - .5) * CFG.nodeSpeed,
+        vy: (Math.random() - .5) * CFG.nodeSpeed,
+        r:  1.8 + Math.random() * 1.8,
+        col,
+        isAI:  col === PAL[2],
+        alpha: .42 + Math.random() * .35,
         phase: Math.random() * Math.PI * 2,
         ring: 0, ringOn: false,
       };
     }
 
-    function init() { nodes = Array.from({ length: 20 }, (_, i) => mkNode(i)); pulses = []; }
+    function init() {
+      nodes  = Array.from({ length: CFG.nodeCount }, (_, i) => mkNode(i));
+      pulses = [];
+    }
 
     function spawnPulse(a, b) {
-      const col = (a.isAI || b.isAI) ? PAL[2] : Math.random() < .5 ? PAL[1] : PAL[0];
-      pulses.push({ from:a, to:b, t:0, col, speed:.005 * (.8 + Math.random() * .4), r:1.2 + Math.random() });
+      const col = (a.isAI || b.isAI) ? PAL[2]
+                : Math.random() < .5  ? PAL[1] : PAL[0];
+      pulses.push({
+        from: a, to: b, t: 0, col,
+        speed: CFG.pulseSpeed * (.78 + Math.random() * .46),
+        r: 1.4 + Math.random() * 1.2,
+      });
+    }
+
+    function orchestrate() {
+      const ai = nodes.filter(n => n.isAI);
+      const o  = ai[Math.floor(Math.random() * ai.length)] || nodes[0];
+      o.ring = 0; o.ringOn = true;
+      nodes.forEach(n => {
+        if (n === o) return;
+        if (Math.hypot(n.x - o.x, n.y - o.y) < CFG.connectR * 1.12
+            && Math.random() < .48) spawnPulse(o, n);
+      });
+    }
+
+    function drawEdge(a, b, d, hi) {
+      const al = hi
+        ? .42
+        : Math.max(0, 1 - d / CFG.connectR) * .14;
+      if (al < 0.008) return;
+      const col = (a.isAI || b.isAI) ? PAL[2] : PAL[1];
+      ctx.save();
+      ctx.globalAlpha = al;
+      ctx.strokeStyle = `rgb(${col.r},${col.g},${col.b})`;
+      ctx.lineWidth   = hi ? 0.85 : 0.5;
+      ctx.shadowColor = `rgb(${col.r},${col.g},${col.b})`;
+      ctx.shadowBlur  = hi ? 5 : 1.5;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawNode(n, ts) {
+      const sh = .8 + .2 * Math.sin(ts * .0013 + n.phase);
+      ctx.save();
+      /* soft halo */
+      ctx.globalAlpha = n.alpha * sh * .18;
+      ctx.fillStyle   = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * 3.4, 0, Math.PI * 2);
+      ctx.fill();
+      /* core dot */
+      ctx.globalAlpha = n.alpha * sh * .72;
+      ctx.shadowColor = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+      ctx.shadowBlur  = 7;
+      ctx.fillStyle   = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+      /* bright centre */
+      ctx.globalAlpha = n.alpha * sh * .55;
+      ctx.shadowBlur  = 2;
+      ctx.fillStyle   = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * .38, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      /* orchestration ring */
+      if (n.ringOn) {
+        ctx.save();
+        ctx.globalAlpha = (1 - n.ring) * .25;
+        ctx.strokeStyle = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+        ctx.lineWidth   = 0.7;
+        ctx.shadowColor = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
+        ctx.shadowBlur  = 5;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r + n.ring * 52, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+        n.ring += .018;
+        if (n.ring >= 1) { n.ring = 0; n.ringOn = false; }
+      }
+    }
+
+    function drawPulse(p) {
+      const x  = p.from.x + (p.to.x - p.from.x) * p.t;
+      const y  = p.from.y + (p.to.y - p.from.y) * p.t;
+      const al = (1 - Math.abs(p.t - .5) * 1.8) * .82;
+      if (al <= 0) return;
+      ctx.save();
+      ctx.globalAlpha = al;
+      ctx.shadowColor = `rgb(${p.col.r},${p.col.g},${p.col.b})`;
+      ctx.shadowBlur  = 9;
+      ctx.fillStyle   = `rgb(${p.col.r},${p.col.g},${p.col.b})`;
+      ctx.beginPath();
+      ctx.arc(x, y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur  = 2;
+      ctx.fillStyle   = '#ffffff';
+      ctx.globalAlpha = al * .65;
+      ctx.beginPath();
+      ctx.arc(x, y, p.r * .36, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
     }
 
     function render(ts) {
       requestAnimationFrame(render);
       if (ts - lastT < 16) return;
-      lastT = ts; frame++;
+      lastT = ts;
+      frame++;
 
+      /* transparent clear — bg color shows through */
       ctx.clearRect(0, 0, W, H);
 
-      if (frame % 340 === 0) {
-        const ai = nodes.filter(n => n.isAI);
-        const o  = ai[Math.floor(Math.random() * ai.length)] || nodes[0];
-        o.ring = 0; o.ringOn = true;
-        nodes.forEach(n => {
-          if (n === o) return;
-          if (Math.hypot(n.x - o.x, n.y - o.y) < 220 && Math.random() < .45) spawnPulse(o, n);
-        });
-      }
+      if (frame % CFG.syncEvery === 0) orchestrate();
 
-      /* update */
+      /* update nodes */
       nodes.forEach(n => {
-        const dx = mouse.x - n.x, dy = mouse.y - n.y, dm = Math.hypot(dx, dy);
-        if (dm < 180) { const f = (1 - dm/180) * .008; n.vx += dx*f; n.vy += dy*f; }
+        const dx = mouse.x - n.x;
+        const dy = mouse.y - n.y;
+        const dm = Math.hypot(dx, dy);
+        if (dm < CFG.mouseR) {
+          const f = (1 - dm / CFG.mouseR) * CFG.mouseK;
+          n.vx += dx * f;
+          n.vy += dy * f;
+        }
         n.vx *= .987; n.vy *= .987;
+        const sp = Math.hypot(n.vx, n.vy);
+        if (sp > CFG.nodeSpeed * 2.5) {
+          n.vx = n.vx / sp * CFG.nodeSpeed * 2.5;
+          n.vy = n.vy / sp * CFG.nodeSpeed * 2.5;
+        }
         n.x += n.vx; n.y += n.vy;
-        const p = 40;
-        if (n.x < p) { n.x = p; n.vx *= -1; } if (n.x > W-p) { n.x = W-p; n.vx *= -1; }
-        if (n.y < p) { n.y = p; n.vy *= -1; } if (n.y > H-p) { n.y = H-p; n.vy *= -1; }
+        const pad = 40;
+        if (n.x < pad)     { n.x = pad;     n.vx *= -1; }
+        if (n.x > W - pad) { n.x = W - pad; n.vx *= -1; }
+        if (n.y < pad)     { n.y = pad;     n.vy *= -1; }
+        if (n.y > H - pad) { n.y = H - pad; n.vy *= -1; }
       });
 
       /* edges */
       for (let i = 0; i < nodes.length; i++) {
-        for (let j = i+1; j < nodes.length; j++) {
-          const d = Math.hypot(nodes[j].x-nodes[i].x, nodes[j].y-nodes[i].y);
-          if (d < 200) {
-            const al = Math.max(0, 1 - d/200) * .12;
-            const col = (nodes[i].isAI || nodes[j].isAI) ? PAL[2] : PAL[1];
-            ctx.save();
-            ctx.globalAlpha = al;
-            ctx.strokeStyle = `rgb(${col.r},${col.g},${col.b})`;
-            ctx.lineWidth   = 0.5;
-            ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
-            ctx.restore();
-          }
+        for (let j = i + 1; j < nodes.length; j++) {
+          const d = Math.hypot(nodes[j].x - nodes[i].x, nodes[j].y - nodes[i].y);
+          if (d < CFG.connectR) drawEdge(nodes[i], nodes[j], d, false);
         }
       }
 
-      /* nodes */
+      /* mouse-proximity highlight */
       nodes.forEach(n => {
-        const sh = .8 + .2 * Math.sin(ts*.0014 + n.phase);
-        ctx.save();
-        ctx.globalAlpha = n.alpha * sh * .15;
-        ctx.fillStyle = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r*3, 0, Math.PI*2); ctx.fill();
-        ctx.globalAlpha = n.alpha * sh * .55;
-        ctx.shadowColor = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
-        ctx.shadowBlur  = 6;
-        ctx.fillStyle   = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
-        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fill();
-        ctx.restore();
-        if (n.ringOn) {
-          ctx.save();
-          ctx.globalAlpha = (1 - n.ring) * .2;
-          ctx.strokeStyle = `rgb(${n.col.r},${n.col.g},${n.col.b})`;
-          ctx.lineWidth   = 0.6;
-          ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.ring*45, 0, Math.PI*2); ctx.stroke();
-          ctx.restore();
-          n.ring += .02; if (n.ring >= 1) { n.ring = 0; n.ringOn = false; }
+        const dm = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+        if (dm < CFG.mouseR * .65) {
+          nodes.forEach(m => {
+            if (m === n) return;
+            const d = Math.hypot(m.x - n.x, m.y - n.y);
+            if (d < CFG.connectR * 1.28) drawEdge(n, m, d, true);
+          });
         }
       });
+
+      /* nodes */
+      nodes.forEach(n => drawNode(n, ts));
 
       /* pulses */
       pulses = pulses.filter(p => p.t < 1);
-      pulses.forEach(p => {
-        const x = p.from.x + (p.to.x - p.from.x) * p.t;
-        const y = p.from.y + (p.to.y - p.from.y) * p.t;
-        const al = (1 - Math.abs(p.t - .5) * 1.8) * .7;
-        if (al > 0) {
-          ctx.save();
-          ctx.globalAlpha = al;
-          ctx.shadowColor = `rgb(${p.col.r},${p.col.g},${p.col.b})`;
-          ctx.shadowBlur  = 8;
-          ctx.fillStyle   = `rgb(${p.col.r},${p.col.g},${p.col.b})`;
-          ctx.beginPath(); ctx.arc(x, y, p.r, 0, Math.PI*2); ctx.fill();
-          ctx.restore();
-        }
-        p.t += p.speed;
-      });
+      pulses.forEach(p => { drawPulse(p); p.t += p.speed; });
 
-      if (frame % 65 === 0) {
+      /* spawn */
+      if (frame % CFG.spawnEvery === 0) {
         const sh = [...nodes].sort(() => Math.random() - .5);
-        outer: for (let i = 0; i < sh.length; i++) {
-          for (let j = i+1; j < sh.length; j++) {
-            const d = Math.hypot(sh[j].x-sh[i].x, sh[j].y-sh[i].y);
-            if (d < 200 && Math.random() < .25) { spawnPulse(sh[i], sh[j]); break outer; }
+        outer:
+        for (let i = 0; i < sh.length; i++) {
+          for (let j = i + 1; j < sh.length; j++) {
+            const d = Math.hypot(sh[j].x - sh[i].x, sh[j].y - sh[i].y);
+            if (d < CFG.connectR && Math.random() < .26) {
+              spawnPulse(sh[i], sh[j]);
+              if (Math.random() < .38) spawnPulse(sh[j], sh[i]);
+              break outer;
+            }
           }
         }
       }
     }
 
-    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    /* track cursor globally — canvas is fixed so clientX/Y map directly */
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+    window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    window.addEventListener('touchmove', e => {
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener('touchend', () => { mouse.x = -9999; mouse.y = -9999; });
+
     window.addEventListener('resize', () => { resize(); init(); });
-    resize(); init(); requestAnimationFrame(render);
+
+    resize();
+    init();
+    requestAnimationFrame(render);
   })();
   </script>
 
